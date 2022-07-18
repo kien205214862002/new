@@ -29,7 +29,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  flutter_bloc: ^8.0.1
+  introduction_screen: ^3.0.1
+  socket_io_client: ^1.0.2
+  http: ^0.13.4 
+  # flutter_custom_dialog: ^1.2.0
+  progress_dialog: ^1.2.4
+  audioplayers: ^0.20.1
+  image_picker: ^0.8.5+3
+  fluttertoast: ^8.0.9
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -56,7 +64,28 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/Images/
+    - assets/Icons/
 
+  fonts:
+    - family: UncialAntiqua
+      fonts: 
+        - asset: assets/Fonts/UncialAntiqua-Regular.ttf
+
+    - family: ZenDots
+      fonts: 
+        - asset: assets/Fonts/ZenDots-Regular.ttf
+
+    - family: Roboto
+      fonts: 
+        - asset: assets/Fonts/Roboto-Regular.ttf
+        - asset: assets/Fonts/Roboto-Bold.ttf
+          weight: 700
+        - asset: assets/Fonts/Roboto-Medium.ttf
+          weight: 500
+        - asset: assets/Fonts/Roboto-LightItalic.ttf
+          weight: 300
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
