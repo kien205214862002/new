@@ -9,8 +9,8 @@ class ImageShow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ImageSlideshow(
-        indicatorColor: Colors.blue,
-        indicatorBackgroundColor: Colors.grey,
+        indicatorColor: Colors.transparent,
+        indicatorBackgroundColor: Colors.transparent,
         initialPage: 0,
         isLoop: true,
         children: [
@@ -18,7 +18,7 @@ class ImageShow extends StatelessWidget {
           Image.asset('assets/images/Logo.png'),
         ],
         onPageChanged: (value){
-          print('Current Page: $value');
+          // print('Current Page: $value');
         },
         );
   }

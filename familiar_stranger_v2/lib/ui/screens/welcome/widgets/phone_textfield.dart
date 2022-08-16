@@ -1,6 +1,7 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class PhoneField extends StatelessWidget {
   TextEditingController controller;
   PhoneField({Key? key, required this.controller}) : super(key: key);

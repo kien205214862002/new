@@ -4,17 +4,16 @@ import 'package:familiar_stranger_v2/ui/components/widgets/buttons/round_button.
 import 'package:familiar_stranger_v2/ui/screens/profile/widgets/avatar.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/widgets/image_show.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/widgets/intro_container.dart';
-import 'package:familiar_stranger_v2/ui/screens/profile/widgets/wallpaper.dart';
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+class FriendProfileScreen extends StatefulWidget {
+  const FriendProfileScreen({Key? key}) : super(key: key);
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<FriendProfileScreen> createState() => _FriendProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _FriendProfileScreenState extends State<FriendProfileScreen> {
   bool isIntro = true;
 
   void changeButton() {
@@ -30,35 +29,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         extendBodyBehindAppBar: false,
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(50),
-          child: AppBar(
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(3.0),
-              child: Container(
-                color: primaryText,
-                height: 1.5,
-              ),
+        appBar: AppBar(
+          iconTheme: const IconThemeData(color: Colors.black),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(3.0),
+            child: Container(
+              color: primaryText,
+              height: 1.5,
             ),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            title: const Text(
-              'Profile',
-              style: TextStyle(
-                  color: primaryText,
-                  fontSize: 25,
-                  fontWeight: FontWeight.w500),
-            ),
-            centerTitle: true,
-            actions: [
-              GestureDetector(
-                  onTap: () {},
-                  child: Image.asset(
-                    'assets/icons/Edit Mailbox.png',
-                    scale: 3.5,
-                  )),
-            ],
           ),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Profile',
+            style: TextStyle(
+                color: primaryText, fontSize: 25, fontWeight: FontWeight.w500),
+          ),
+          centerTitle: true,
+          actions: [
+            GestureDetector(
+                onTap: () {},
+                child: Image.asset(
+                  'assets/icons/Edit Mailbox.png',
+                  scale: 3.5,
+                )),
+          ],
         ),
         body: Stack(children: [
           SingleChildScrollView(
@@ -71,7 +66,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Stack(
                       alignment: Alignment.topLeft,
                       children: [
-                        const WallPaper(),
+                        Container(
+                          height: 160 * size.height / 896,
+                          width: size.width,
+                          decoration: BoxDecoration(
+                              color: fieldColor,
+                              border:
+                                  Border.all(color: fieldBorder, width: 2.5),
+                              borderRadius: const BorderRadius.only(
+                                  bottomRight: Radius.circular(45.0))),
+                          //WallPaper
+                          // child: ,
+                        ),
                         Positioned(
                           top: 80 * size.height / 896,
                           left: 0,
@@ -168,10 +174,56 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ),
+          Positioned(
+            top: 150 * size.height / 896,
+            right: 0,
+            child: Container(
+              width: 63 * size.width / 414,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: secondaryColor, width: 3),
+                  borderRadius: const BorderRadius.all(Radius.circular(8.0))),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 10 * size.height / 896,
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Image.asset(
+                      'assets/icons/Following-1.png',
+                      scale: 4,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20 * size.height / 896,
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Image.asset(
+                      'assets/icons/Chat-1.png',
+                      scale: 4,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20 * size.height / 896,
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Image.asset(
+                      'assets/icons/Delete-1.png',
+                      scale: 4,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10 * size.height / 896,
+                  ),
+                ],
+              ),
+            ),
+          ),
         ]),
       ),
     );
   }
 }
-
-

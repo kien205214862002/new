@@ -21,6 +21,7 @@ class _HomeBGState extends State<HomeBG> {
             //     width: double.infinity,
             //     color: primaryColor,
             //   )),
+            
               widget.child,
           ],
         ),

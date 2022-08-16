@@ -15,7 +15,7 @@ class _IntroContainerState extends State<IntroContainer> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(height: 5*size.height/896,),
-        Text('data'),
+        const Text('data'),
       ],
     );
   }

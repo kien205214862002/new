@@ -17,7 +17,7 @@ class _SettingScreenState extends State<SettingScreen> {
       body: HomeBG(
           child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const [
             Text('Setting'),
           ],
       )),

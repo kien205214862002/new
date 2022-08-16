@@ -1,7 +1,7 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
 import 'package:flutter/material.dart';
 
-
+// ignore: must_be_immutable
 class CircleButton extends StatelessWidget {
   VoidCallback press;
   String title;

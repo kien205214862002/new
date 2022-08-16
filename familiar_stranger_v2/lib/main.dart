@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Familiar Stranger',
       theme: AppTheme.light,
-      home: MainScreen(),
+      home: const MainScreen(),
       // home: const WelcomeScreen(),
     );
   }

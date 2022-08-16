@@ -1,7 +1,7 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
 import 'package:flutter/cupertino.dart';
 
-
+// ignore: must_be_immutable
 class LeftClick extends StatelessWidget {
   String title;
   VoidCallback press;
