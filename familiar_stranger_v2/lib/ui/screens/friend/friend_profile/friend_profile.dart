@@ -50,7 +50,7 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
             GestureDetector(
                 onTap: () {},
                 child: Image.asset(
-                  'assets/icons/Edit Mailbox.png',
+                  'assets/icons/Error-1.png',
                   scale: 3.5,
                 )),
           ],
@@ -164,8 +164,36 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                               borderRadius: const BorderRadius.all(
                                   Radius.circular(15.0))),
                           child: isIntro == false
-                              ? const ImageShow()
-                              : const IntroContainer(),
+                              ? Stack(children: [
+                                  Positioned.fill(child: ImageShow(onChanged: (value){
+                                    //get the current image position in list
+                                  },)),
+                                  Positioned.fill(
+                                      child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        alignment: Alignment.center,
+                                        height: 123 * size.height / 896,
+                                        width: size.width * 0.891,
+                                        color: fieldBorder.withOpacity(0.4),
+                                        child: const Text(
+                                          'Data Friend',
+                                          style: TextStyle(
+                                              color: secondaryText,
+                                              fontSize: 18),
+                                        ),
+                                      )
+                                    ],
+                                  ))
+                                ])
+                              : IntroContainer(
+                                name: 'Tran Thanh Trung',
+                                birth: 2001,
+                                genderLink: 'assets/icons/Call.png',
+                                description: '................................................................',
+                                status: '........................................................................',
+                              ),
                         )
                       ],
                     ),

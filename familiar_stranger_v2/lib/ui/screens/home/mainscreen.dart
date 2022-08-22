@@ -1,4 +1,5 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
+import 'package:familiar_stranger_v2/ui/components/widgets/dialog/dialog_yes_no.dart';
 import 'package:familiar_stranger_v2/ui/screens/friend/list_friend/list_friend.dart';
 import 'package:familiar_stranger_v2/ui/screens/home/home.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/profile.dart';
@@ -63,7 +64,17 @@ class _MainScreenState extends State<MainScreen> {
                 'assets/icons/Search.png',
                 scale: 3.5,
               ),
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  // barrierDismissible: false,
+                  context: context, 
+                  builder: (context){
+                    return DialogYesNo(
+                      title: 'Opponent want to call you(Only Media).', 
+                      yes: (){}, 
+                      no: (){});
+                  });
+              },
             ),
           ),
           bottomNavigationBar: Container(

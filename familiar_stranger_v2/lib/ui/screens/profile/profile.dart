@@ -158,11 +158,69 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               borderRadius: const BorderRadius.all(
                                   Radius.circular(15.0))),
                           child: isIntro == false
-                              ? const ImageShow()
-                              : const IntroContainer(),
+                              ? Stack(children: [
+                                  Positioned.fill(child: ImageShow(
+                                    onChanged: (value) {
+                                      //get the current image position in list
+                                    },
+                                  )),
+                                  Positioned.fill(
+                                      child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Container(
+                                        alignment: Alignment.center,
+                                        height: 123 * size.height / 896,
+                                        width: size.width * 0.891,
+                                        color: fieldBorder.withOpacity(0.4),
+                                        child: const Text(
+                                          'Data',
+                                          style: TextStyle(
+                                              color: secondaryText,
+                                              fontSize: 18),
+                                        ),
+                                      )
+                                    ],
+                                  )),
+                                ])
+                              : IntroContainer(
+                                name: 'Tran Thanh Trung',
+                                birth: 2001,
+                                genderLink: 'assets/icons/Call.png',
+                                description: '................................................................',
+                                status: '........................................................................',
+                              ),
                         )
                       ],
                     ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            top: 270 * size.height / 896,
+            right: 0,
+            child: Container(
+              width: 63 * size.width / 414,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(color: secondaryColor, width: 3),
+                  borderRadius: const BorderRadius.all(Radius.circular(8.0))),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 10 * size.height / 896,
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Image.asset(
+                      'assets/icons/Following-1.png',
+                      scale: 4,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10 * size.height / 896,
                   ),
                 ],
               ),
@@ -173,5 +231,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
-
-

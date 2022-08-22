@@ -1,6 +1,8 @@
 import 'package:familiar_stranger_v2/config/themes/theme.dart';
+import 'package:familiar_stranger_v2/ui/screens/chat/music/music.dart';
 import 'package:familiar_stranger_v2/ui/screens/home/mainscreen.dart';
-import 'package:familiar_stranger_v2/ui/screens/welcome/splash/splash.dart';
+import 'package:familiar_stranger_v2/ui/screens/profile/add_image/add_image.dart';
+import 'package:familiar_stranger_v2/ui/screens/profile/edit/edit.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Familiar Stranger',
       theme: AppTheme.light,
-      home: const MainScreen(),
+      home: const AddImageScreen(),
       // home: const WelcomeScreen(),
     );
   }
