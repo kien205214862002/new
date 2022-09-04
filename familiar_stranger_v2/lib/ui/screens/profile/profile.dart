@@ -1,11 +1,16 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
+import 'package:familiar_stranger_v2/controllers/myController.dart';
+import 'package:familiar_stranger_v2/services/api.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/home_bg.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/buttons/round_button.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/widgets/avatar.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/widgets/image_show.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/widgets/intro_container.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/widgets/wallpaper.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -14,7 +19,24 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
+  Future<void> pickImage() async {
+    try {
+      final ImagePicker imagePicker = ImagePicker();
+      var image = await imagePicker.pickImage(source: ImageSource.gallery);
+      if(image!=null){
+        Future.delayed(Duration.zero,()async{
+          await uploadAvatar(image.path.toString());
+        });
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
 class _ProfileScreenState extends State<ProfileScreen> {
+
+  MyController myController = Get.put(MyController());
+
   bool isIntro = true;
 
   void changeButton() {
@@ -52,7 +74,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             centerTitle: true,
             actions: [
               GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed('/editProfileScreen');
+                  },
                   child: Image.asset(
                     'assets/icons/Edit Mailbox.png',
                     scale: 3.5,
@@ -80,7 +104,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               Avatar(
                                 size: size,
-                                onPressed: () {},
+                                onPressed: () {
+                                  debugPrint(myController.currentUser.value.listFriendId.toString());
+                                  //pickImage();
+                                },
                               ),
                               SizedBox(
                                 width: 15 * size.width / 414,
@@ -89,17 +116,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(height: 70 * size.height / 896),
-                                  const Text(
-                                    'Name',
-                                    style: TextStyle(
-                                        color: primaryText,
-                                        fontWeight: FontWeight.w800,
-                                        fontSize: 23),
+                                  Obx(
+                                    () => Text(
+                                      myController.currentUser.value.username.toString(),
+                                      style: const TextStyle(
+                                          color: primaryText,
+                                          fontWeight: FontWeight.w800,
+                                          fontSize: 23),
+                                    ),
                                   ),
-                                  const Text(
-                                    'Short Description',
-                                    style: TextStyle(
-                                        color: primaryText, fontSize: 14),
+                                  Obx(
+                                    () => Text(
+                                      myController.currentUser.value.username.toString(),
+                                      style: const TextStyle(
+                                          color: primaryText, fontSize: 14),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -157,39 +188,43 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   Border.all(color: fieldBorder, width: 2.5),
                               borderRadius: const BorderRadius.all(
                                   Radius.circular(15.0))),
-                          child: isIntro == false
-                              ? Stack(children: [
-                                  Positioned.fill(child: ImageShow(
-                                    onChanged: (value) {
-                                      //get the current image position in list
-                                    },
-                                  )),
-                                  Positioned.fill(
-                                      child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Container(
-                                        alignment: Alignment.center,
-                                        height: 123 * size.height / 896,
-                                        width: size.width * 0.891,
-                                        color: fieldBorder.withOpacity(0.4),
-                                        child: const Text(
-                                          'Data',
-                                          style: TextStyle(
-                                              color: secondaryText,
-                                              fontSize: 18),
-                                        ),
-                                      )
-                                    ],
-                                  )),
-                                ])
-                              : IntroContainer(
-                                name: 'Tran Thanh Trung',
-                                birth: 2001,
-                                genderLink: 'assets/icons/Call.png',
-                                description: '................................................................',
-                                status: '........................................................................',
-                              ),
+                          child: Obx(() => isIntro == false
+                                ? Stack(children: [
+                                    Positioned.fill(child: ImageShow(
+                                      onChanged: (value) {
+                                        //get the current image position in list
+                                      },
+                                    )),
+                                    Positioned.fill(
+                                        child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Container(
+                                          alignment: Alignment.center,
+                                          height: 123 * size.height / 896,
+                                          width: size.width * 0.891,
+                                          color: fieldBorder.withOpacity(0.4),
+                                          child: const Text(
+                                            'Data',
+                                            style: TextStyle(
+                                                color: secondaryText,
+                                                fontSize: 18),
+                                          ),
+                                        )
+                                      ],
+                                    )),
+                                  ])
+                                : IntroContainer(
+                                    name: myController.currentUser.value.username.toString(),
+                                    birth: int.parse(
+                                        myController.currentUser.value.yearOfB.toString()),
+                                    genderLink: 'assets/icons/Call.png',
+                                    description:
+                                        '................................................................',
+                                    status:
+                                        '........................................................................',
+                                  ),
+                          ),
                         )
                       ],
                     ),

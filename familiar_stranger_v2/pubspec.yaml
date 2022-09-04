@@ -43,6 +43,8 @@ dependencies:
   flutter_image_slideshow: ^0.1.2
   flutter_screenutil: ^5.5.3+2
   custom_navigator: ^0.3.0
+  get: ^4.6.5
+  get_storage: ^2.0.3
   
 
 dev_dependencies:
@@ -65,7 +67,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-    - assets/images/character/
+    # - assets/images/character/
 
   fonts:
     - family: NewRocker

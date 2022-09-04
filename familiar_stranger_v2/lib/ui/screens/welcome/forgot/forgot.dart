@@ -5,6 +5,7 @@ import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/left_click.dart'
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/phone_textfield.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/right_click.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 
 class ForgotScreen extends StatefulWidget {
   const ForgotScreen({Key? key}) : super(key: key);
@@ -50,8 +51,12 @@ class _ForgotScreenState extends State<ForgotScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      LeftClick(title: 'SIGN UP', press: (){}),
-                      RightClick(title: 'LOG IN', press: (){})
+                      LeftClick(title: 'SIGN UP', press: (){
+                        Get.offNamed('/signUpScreen');
+                      }),
+                      RightClick(title: 'LOG IN', press: (){
+                        Get.back();
+                      })
                     ],
                   ),
                 ],

@@ -3,9 +3,15 @@ import 'package:familiar_stranger_v2/ui/screens/chat/music/music.dart';
 import 'package:familiar_stranger_v2/ui/screens/home/mainscreen.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/add_image/add_image.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/edit/edit.dart';
+import 'package:familiar_stranger_v2/ui/screens/welcome/forgot/forgot.dart';
+import 'package:familiar_stranger_v2/ui/screens/welcome/login/login.dart';
+import 'package:familiar_stranger_v2/ui/screens/welcome/signup/signup.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+void main() async{
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
@@ -15,12 +21,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Familiar Stranger',
       theme: AppTheme.light,
-      home: const AddImageScreen(),
+      home: const LoginScreen(),
       // home: const WelcomeScreen(),
+      getPages: [
+        GetPage(name: "/mainScreen", page: () => const MainScreen()),
+        GetPage(name: "/loginScreen", page: () => const LoginScreen()),
+        GetPage(name: "/forgotScreen", page: () => const ForgotScreen()),
+        GetPage(name: "/signUpScreen", page: () => const SignUpScreen()),
+        GetPage(name: "/editProfileScreen", page: () => const EditScreen())
+      ],
     );
   }
 }

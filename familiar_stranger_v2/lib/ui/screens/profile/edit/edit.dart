@@ -1,12 +1,12 @@
-import 'dart:ui';
-
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
+import 'package:familiar_stranger_v2/controllers/myController.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/home_bg.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/buttons/round_button.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/textfields/multiline_textfield.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/textfields/oneline_textfield.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/textfields/year_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EditScreen extends StatefulWidget {
   const EditScreen({Key? key}) : super(key: key);
@@ -16,6 +16,8 @@ class EditScreen extends StatefulWidget {
 }
 
 class _EditScreenState extends State<EditScreen> {
+  MyController myController = Get.put(MyController());
+
   final username = TextEditingController();
   final emotion = TextEditingController();
   final fullname = TextEditingController();
@@ -47,13 +49,21 @@ class _EditScreenState extends State<EditScreen> {
                 color: primaryText, fontSize: 25, fontWeight: FontWeight.w500),
           ),
           centerTitle: true,
-          leading: IconButton(onPressed: (){}, icon: Image.asset('assets/icons/Back_black.png', scale: 1*size.width/414,)),
+          //leading: IconButton(onPressed: (){}, icon: Image.asset('assets/icons/Back_black.png', scale: 1*size.width/414,)),
           actions: [
             Padding(
               padding: EdgeInsets.only(
                   right: 5.0 * size.width / 414, top: 5.0 * size.height / 896),
               child: GestureDetector(
-                  onTap: () {},
+                  onTap: () async {
+                    myController.updateProfile(
+                        username.text,
+                        emotion.text,
+                        fullname.text,
+                        year.text,
+                        description.text,
+                        status.text);
+                  },
                   child: Image.asset(
                     'assets/icons/Save.png',
                     scale: 5,
@@ -131,9 +141,9 @@ class _EditScreenState extends State<EditScreen> {
                     child: GridView.builder(
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                mainAxisSpacing: 20,
-                                ),
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 20,
+                        ),
                         padding: EdgeInsets.all(10 * size.width / 414),
                         shrinkWrap: true,
                         itemCount: 10,
@@ -141,24 +151,27 @@ class _EditScreenState extends State<EditScreen> {
                           return Stack(
                             alignment: Alignment.center,
                             children: [
-                                Container(
-                                  height: 165*size.height/896,
-                                  width: 100*size.width/414,
-                                  decoration: BoxDecoration(
-                                      color: secondaryText,
-                                      border: Border.all(
-                                          color: fieldBorder, width: 2),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(12.0))),
-                                          child: GestureDetector(
-                                            onTap: (){
-                                              //click to view Photo
-                                            },
-                                            onLongPress: (){
-                                              //use to Delete
-                                            },
-                                            child: Image.asset('assets/images/Vector.png', fit: BoxFit.fill,)),
-                                ),
+                              Container(
+                                height: 165 * size.height / 896,
+                                width: 100 * size.width / 414,
+                                decoration: BoxDecoration(
+                                    color: secondaryText,
+                                    border: Border.all(
+                                        color: fieldBorder, width: 2),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(12.0))),
+                                child: GestureDetector(
+                                    onTap: () {
+                                      //click to view Photo
+                                    },
+                                    onLongPress: () {
+                                      //use to Delete
+                                    },
+                                    child: Image.asset(
+                                      'assets/images/Vector.png',
+                                      fit: BoxFit.fill,
+                                    )),
+                              ),
                             ],
                           );
                         }),
@@ -167,10 +180,16 @@ class _EditScreenState extends State<EditScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      RoundButton(borderColor: secondaryColor, backgroundColor: secondaryText, textColor: primaryText, text: 'Upload', press: (){}),
-                      SizedBox(width: 28*size.width/414,)
+                      RoundButton(
+                          borderColor: secondaryColor,
+                          backgroundColor: secondaryText,
+                          textColor: primaryText,
+                          text: 'Upload',
+                          press: () {}),
+                      SizedBox(
+                        width: 28 * size.width / 414,
+                      )
                     ],
-
                   )
                 ],
               ),

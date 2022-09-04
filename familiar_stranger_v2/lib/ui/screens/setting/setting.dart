@@ -3,6 +3,8 @@ import 'package:familiar_stranger_v2/ui/components/backgrounds/home_bg.dart';
 import 'package:familiar_stranger_v2/ui/screens/setting/widgets/click_item.dart';
 import 'package:familiar_stranger_v2/ui/screens/setting/widgets/switch_item.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:get_storage/get_storage.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -12,6 +14,9 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+
+  final userData = GetStorage();
+
   bool isActiveSound = true;
   bool isActiveNotification = false;
   bool isActiveVibration = false;
@@ -52,7 +57,11 @@ class _SettingScreenState extends State<SettingScreen> {
               padding: EdgeInsets.only(
                   right: 5.0 * size.width / 414, top: 5.0 * size.height / 896),
               child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    userData.remove('token');
+                    userData.write('isLogged', false);
+                    Get.offNamed('/loginScreen');
+                  },
                   child: Image.asset(
                     'assets/icons/Logout.png',
                     scale: 3,

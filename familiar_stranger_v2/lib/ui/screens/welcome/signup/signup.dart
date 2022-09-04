@@ -1,4 +1,5 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
+import 'package:familiar_stranger_v2/services/api.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/welcome_bg.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/circle_button.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/left_click.dart';
@@ -6,6 +7,7 @@ import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/password_textfie
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/phone_textfield.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/right_click.dart';
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -13,6 +15,13 @@ class SignUpScreen extends StatefulWidget {
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
+
+showSnackbar(title, message,IconData icon){
+  Get.snackbar(title, message, 
+    snackPosition: SnackPosition.BOTTOM, 
+    icon: Icon(icon, color: Colors.white));
+}
+
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final phoneController = TextEditingController();
@@ -47,7 +56,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
             SizedBox(height: 23*size.height/896,),
             PasswordField(controller: passwordRetypeController, press: (){},),
             SizedBox(height: 23*size.height/896,),
-            CircleButton(press: (){}, title: 'GO'),
+            CircleButton(press: () async {
+              if(phoneController.text.isEmpty || passwordController.text.isEmpty|| passwordRetypeController.text.isEmpty){
+                showSnackbar('Sign Up fail','Missing phoneNumber and/or password',Icons.error);
+                return ;
+              }
+              if(passwordController.text != passwordRetypeController.text) {
+                showSnackbar('Sign Up fail','Password don\'t match',Icons.error);
+                return;
+              }
+              var result = await submitSignUp(phoneController.text, passwordController.text);
+              result ? {
+                Get.back(result: {"phoneNumber":phoneController.text, "password":passwordController.text}),
+                showSnackbar('Sign Up Success','Login pls',Icons.check)}
+                :showSnackbar('Sign Up fail','User exists',Icons.error);
+              
+            }, title: 'GO'),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -55,8 +79,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      LeftClick(title: '  FORGOT', press: (){}),
-                      RightClick(title: 'LOG IN', press: (){})
+                      LeftClick(title: '  FORGOT', press: (){
+                        Get.offNamed('/forgotScreen');
+                      }),
+                      RightClick(title: 'LOG IN', press: (){
+                        Get.back();
+                      })
                     ],
                   ),
                 ],
