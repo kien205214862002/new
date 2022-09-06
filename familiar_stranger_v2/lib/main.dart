@@ -25,8 +25,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Familiar Stranger',
       theme: AppTheme.light,
-      home: const LoginScreen(),
+      //home: const LoginScreen(),
       // home: const WelcomeScreen(),
+      initialRoute: '/loginScreen',
       getPages: [
         GetPage(name: "/mainScreen", page: () => const MainScreen()),
         GetPage(name: "/loginScreen", page: () => const LoginScreen()),

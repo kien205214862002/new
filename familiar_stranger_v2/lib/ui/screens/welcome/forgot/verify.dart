@@ -6,14 +6,14 @@ import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/phone_textfield.
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/right_click.dart';
 import 'package:flutter/material.dart';
 
-class ForgotScreen extends StatefulWidget {
-  const ForgotScreen({Key? key}) : super(key: key);
+class VerifyScreen extends StatefulWidget {
+  const VerifyScreen({Key? key}) : super(key: key);
 
   @override
-  State<ForgotScreen> createState() => _ForgotScreenState();
+  State<VerifyScreen> createState() => _VerifyScreenState();
 }
 
-class _ForgotScreenState extends State<ForgotScreen> {
+class _VerifyScreenState extends State<VerifyScreen> {
   final phoneController = TextEditingController();
   bool remember = false;
   @override

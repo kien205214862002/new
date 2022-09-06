@@ -10,7 +10,6 @@ import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/remember.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/right_click.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 import 'package:get_storage/get_storage.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -36,9 +35,9 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
     userData.writeIfNull('isLogged', false);
-    Future.delayed(Duration.zero,()async{
-      checkIfLogged();
-    });
+    // Future.delayed(Duration.zero,()async{
+    //   checkIfLogged();
+    // });
   }
 
   Future<void> checkIfLogged() async {
