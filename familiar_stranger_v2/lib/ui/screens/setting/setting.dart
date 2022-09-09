@@ -1,10 +1,12 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
+import 'package:familiar_stranger_v2/controllers/setting/setting_controller.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/home_bg.dart';
 import 'package:familiar_stranger_v2/ui/screens/setting/widgets/click_item.dart';
 import 'package:familiar_stranger_v2/ui/screens/setting/widgets/switch_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:get/get.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -17,10 +19,9 @@ class _SettingScreenState extends State<SettingScreen> {
 
   final userData = GetStorage();
 
-  bool isActiveSound = true;
-  bool isActiveNotification = false;
-  bool isActiveVibration = false;
-  bool isActiveStatus = false;
+ final SettingController settingController = Get.put(SettingController());
+
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -75,49 +76,51 @@ class _SettingScreenState extends State<SettingScreen> {
           child: HomeBG(
               child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20 * size.width / 414),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 90 * size.height / 896,
-                ),
-                SwitchItem(
-                    title: 'Sound',
-                    subtitle: 'Enable/Disable sounds',
-                    isActive: isActiveSound,
-                    onChanged: (value) {
-                      setState(() {});
-                    }),
-                SwitchItem(
-                    title: 'Notification',
-                    subtitle: 'Enable/Disable notifications',
-                    isActive: isActiveNotification,
-                    onChanged: (value) {
-                      setState(() {});
-                    }),
-                SwitchItem(
-                    title: 'Vibration',
-                    subtitle: 'Enable/Disable vibrations',
-                    isActive: isActiveVibration,
-                    onChanged: (value) {
-                      setState(() {});
-                    }),
-                SwitchItem(
-                    title: 'Status',
-                    subtitle: 'Show/Hide your Free status',
-                    isActive: isActiveStatus,
-                    onChanged: (value) {
-                      setState(() {});
-                    }),
-                Clickitem(
-                    title: 'Change password',
-                    subtitle: 'Change current password',
-                    onPress: () {}),
-                Clickitem(
-                    title: 'Policy & Legal',
-                    subtitle: 'Read for customer',
-                    onPress: () {}),
-              ],
+            child: Obx(()=>
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 90 * size.height / 896,
+                  ),
+                  SwitchItem(
+                      title: 'Sound',
+                      subtitle: 'Enable/Disable sounds',
+                      isActive: settingController.soundActive.value,
+                      onChanged: (value) {
+                        settingController.changeSoundSetting();
+                      }),
+                  SwitchItem(
+                      title: 'Notification',
+                      subtitle: 'Enable/Disable notifications',
+                      isActive: settingController.notificationActive.value,
+                      onChanged: (value) {
+                        settingController.changeNotificationSetting();
+                      }),
+                  SwitchItem(
+                      title: 'Vibration',
+                      subtitle: 'Enable/Disable vibrations',
+                      isActive: settingController.vibrationActive.value,
+                      onChanged: (value) {
+                        settingController.changeVibrationSetting();
+                      }),
+                  SwitchItem(
+                      title: 'Status',
+                      subtitle: 'Show/Hide your Free status',
+                      isActive: settingController.statusActive.value,
+                      onChanged: (value) {
+                        settingController.changeStatusSetting();
+                      }),
+                  Clickitem(
+                      title: 'Change password',
+                      subtitle: 'Change current password',
+                      onPress: () {}),
+                  Clickitem(
+                      title: 'Policy & Legal',
+                      subtitle: 'Read for customer',
+                      onPress: () {}),
+                ],
+              ),
             ),
           )),
         ),

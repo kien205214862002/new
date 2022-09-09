@@ -92,50 +92,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SizedBox(
                     height: 270 * size.height / 896,
                     width: size.width,
-                    child: Stack(
-                      alignment: Alignment.topLeft,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const WallPaper(),
-                        Positioned(
-                          top: 80 * size.height / 896,
-                          left: 0,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Avatar(
-                                size: size,
-                                onPressed: () {
-                                  debugPrint(myController.currentUser.value.listFriendId.toString());
-                                  //pickImage();
-                                },
-                              ),
-                              SizedBox(
-                                width: 15 * size.width / 414,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(height: 70 * size.height / 896),
-                                  Obx(
-                                    () => Text(
-                                      myController.currentUser.value.username.toString(),
-                                      style: const TextStyle(
-                                          color: primaryText,
-                                          fontWeight: FontWeight.w800,
-                                          fontSize: 23),
-                                    ),
+                        // const WallPaper(),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Avatar(
+                              size: size,
+                              onPressed: () {
+                                debugPrint(myController.currentUser.value.listFriendId.toString());
+                                //pickImage();
+                              },
+                            ),
+                            SizedBox(
+                              width: 15 * size.width / 414,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(height: 70 * size.height / 896),
+                                Obx(
+                                  () => Text(
+                                    myController.currentUser.value.username.toString(),
+                                    style: const TextStyle(
+                                        color: primaryText,
+                                        fontWeight: FontWeight.w800,
+                                        fontSize: 23),
                                   ),
-                                  Obx(
-                                    () => Text(
-                                      myController.currentUser.value.username.toString(),
-                                      style: const TextStyle(
-                                          color: primaryText, fontSize: 14),
-                                    ),
+                                ),
+                                Obx(
+                                  () => Text(
+                                    myController.currentUser.value.username.toString(),
+                                    style: const TextStyle(
+                                        color: primaryText, fontSize: 14),
                                   ),
-                                ],
-                              ),
-                            ],
-                          ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -143,10 +139,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             RoundButton(
                               borderColor:

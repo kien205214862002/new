@@ -30,7 +30,7 @@ class PhoneField extends StatelessWidget {
             fontSize: 18, color: primaryText, fontFamily: 'Poppins'),
         decoration: const InputDecoration(
           border: InputBorder.none,
-          hintText: 'Phonenumber',
+          hintText: 'Email',
           hintStyle: TextStyle(color: primaryText),
           isCollapsed: true,
         ),

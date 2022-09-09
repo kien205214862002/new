@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.light,
       //home: const LoginScreen(),
       // home: const WelcomeScreen(),
-      initialRoute: '/loginScreen',
+      initialRoute: '/mainScreen',
       getPages: [
         GetPage(name: "/mainScreen", page: () => const MainScreen()),
         GetPage(name: "/loginScreen", page: () => const LoginScreen()),

@@ -45,6 +45,7 @@ dependencies:
   custom_navigator: ^0.3.0
   get: ^4.6.5
   get_storage: ^2.0.3
+  flutter_slidable: ^2.0.0
   
 
 dev_dependencies:

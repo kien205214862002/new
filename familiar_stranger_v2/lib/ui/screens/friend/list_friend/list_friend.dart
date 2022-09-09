@@ -171,8 +171,8 @@ class _ListFriendScreenState extends State<ListFriendScreen> {
                           itemBuilder: (_, index) {
                             return (isSelected[0] == true ||
                                     isSelected[2] == true)
-                                ? FriendModel(friendName: '${index + 1}')
-                                : StrangerModel(friendName: '${index + 1}');
+                                ? FriendModel(friendName: '${index + 1}', status: 'Free', color: Colors.green, onPressed: (){},)
+                                : StrangerModel(friendName: '${index + 1}', status: 'Not Friend', onPressedAdd: (){}, onPressed: (){},);
                           },
                           separatorBuilder: (BuildContext context, int index) {
                             return SizedBox(

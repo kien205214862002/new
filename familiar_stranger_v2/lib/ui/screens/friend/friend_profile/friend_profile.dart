@@ -45,6 +45,12 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
             style: TextStyle(
                 color: primaryText, fontSize: 25, fontWeight: FontWeight.w500),
           ),
+          leading: GestureDetector(
+          onTap: (){
+            Navigator.of(context).pop();
+          },
+          child: Image.asset('assets/icons/Back_black.png', scale: 3.0,),
+        ),
           centerTitle: true,
           actions: [
             GestureDetector(
@@ -63,8 +69,8 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                   SizedBox(
                     height: 270 * size.height / 896,
                     width: size.width,
-                    child: Stack(
-                      alignment: Alignment.topLeft,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
                           height: 160 * size.height / 896,
@@ -78,39 +84,35 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                           //WallPaper
                           // child: ,
                         ),
-                        Positioned(
-                          top: 80 * size.height / 896,
-                          left: 0,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Avatar(
-                                size: size,
-                                onPressed: () {},
-                              ),
-                              SizedBox(
-                                width: 15 * size.width / 414,
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(height: 70 * size.height / 896),
-                                  const Text(
-                                    'Name',
-                                    style: TextStyle(
-                                        color: primaryText,
-                                        fontWeight: FontWeight.w800,
-                                        fontSize: 23),
-                                  ),
-                                  const Text(
-                                    'Short Description',
-                                    style: TextStyle(
-                                        color: primaryText, fontSize: 14),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Avatar(
+                              size: size,
+                              onPressed: () {},
+                            ),
+                            SizedBox(
+                              width: 15 * size.width / 414,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(height: 70 * size.height / 896),
+                                const Text(
+                                  'Name',
+                                  style: TextStyle(
+                                      color: primaryText,
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 23),
+                                ),
+                                const Text(
+                                  'Short Description',
+                                  style: TextStyle(
+                                      color: primaryText, fontSize: 14),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -118,10 +120,10 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             RoundButton(
                               borderColor:
