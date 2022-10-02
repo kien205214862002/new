@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 class PasswordField extends StatelessWidget {
   TextEditingController controller;
   VoidCallback press;
-  PasswordField({Key? key, required this.controller, required this.press})
+  String hint;
+  PasswordField({Key? key, required this.controller, required this.hint, required this.press})
       : super(key: key);
 
   @override
@@ -29,10 +30,10 @@ class PasswordField extends StatelessWidget {
         controller: controller,
         style: const TextStyle(
             fontSize: 18, color: primaryText, fontFamily: 'Poppins'),
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
             border: InputBorder.none,
-            hintText: 'Password',
-            hintStyle: TextStyle(color: primaryText),
+            hintText: hint,
+            hintStyle: const TextStyle(color: primaryText),
             isCollapsed: true),
       ),
     );

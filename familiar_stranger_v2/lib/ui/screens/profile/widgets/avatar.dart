@@ -26,7 +26,7 @@ class Avatar extends StatelessWidget {
         onTap: onPressed,
         child: Obx(() => CircleAvatar(
             backgroundImage:
-                NetworkImage(myController.currentUser.value.imageId![0].imageUrl.toString()),
+                NetworkImage(myController.currentUser.value.listImage![0].imageUrl.toString()),
             radius: 95.0,
           ),
         ),

@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 class MultilineTextField extends StatelessWidget {
   ValueChanged onChanged;
   TextEditingController controller;
+  String hint;
   MultilineTextField({
     Key? key,
     required this.onChanged,
-    required this.controller
+    required this.controller,
+    required this.hint
   }) : super(key: key);
 
 
@@ -34,9 +36,9 @@ class MultilineTextField extends StatelessWidget {
             textAlign: TextAlign.center,
             onChanged: onChanged,
             style: const TextStyle(color: primaryText, fontSize: 15, fontWeight: FontWeight.normal),
-            decoration: const InputDecoration(
-              hintText: 'Description',
-              hintStyle: TextStyle(color: primaryText, fontSize: 15, fontWeight: FontWeight.normal),
+            decoration: InputDecoration(
+              hintText: hint,
+              hintStyle: TextStyle(color: primaryText.withOpacity(0.5), fontSize: 15, fontWeight: FontWeight.normal),
               isCollapsed: true,
               border: InputBorder.none,
             ),

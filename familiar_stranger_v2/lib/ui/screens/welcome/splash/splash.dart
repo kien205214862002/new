@@ -1,6 +1,9 @@
+import 'package:familiar_stranger_v2/controllers/myController.dart';
+import 'package:familiar_stranger_v2/controllers/setting/setting_controller.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/welcome_bg.dart';
-import 'package:familiar_stranger_v2/ui/screens/welcome/login/login.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -10,10 +13,33 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  MyController myController = Get.put(MyController());
+  SettingController settingController = Get.put(SettingController());
+
+  final userData = GetStorage();
+
+  Future<void> checkIfLogged() async {
+    if (userData.read('isLogged')) {
+      var result = await myController.loginByToken();
+      result?{
+        Get.offNamed('/mainScreen')
+      }:{
+        userData.write('isLogged', false),
+        userData.remove('token'),
+        Get.offNamed('/loginScreen')
+      };
+    }else{
+      Get.offNamed('/loginScreen');
+    }
+  }
+
   bool opening = false;
   @override
-  void initState()
-  {
+  void initState(){
+    //userData.write('isLogged', false);
+    userData.writeIfNull('isLogged', false);
+
     Future.delayed(const Duration(seconds: 1), (){
       setState(() {
         opening = true;
@@ -39,8 +65,7 @@ class _SplashScreenState extends State<SplashScreen> {
               scale: opening ? 1.0 : 0.0,
               onEnd: (){
                 Future.delayed(const Duration(seconds: 2), (){
-                  Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const LoginScreen()));
+                  checkIfLogged();
                 });
               },
               child: SizedBox(

@@ -31,7 +31,7 @@ class OneLineTextField extends StatelessWidget {
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: hint,
-          hintStyle: const TextStyle(color: primaryText),
+          hintStyle: TextStyle(color: primaryText.withOpacity(0.5)),
           isCollapsed: true,
         ),
       ),

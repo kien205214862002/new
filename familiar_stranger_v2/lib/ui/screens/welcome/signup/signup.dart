@@ -1,5 +1,5 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
-import 'package:familiar_stranger_v2/services/api.dart';
+import 'package:familiar_stranger_v2/controllers/myController.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/welcome_bg.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/circle_button.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/left_click.dart';
@@ -7,7 +7,7 @@ import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/password_textfie
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/phone_textfield.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/right_click.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -24,6 +24,9 @@ showSnackbar(title, message,IconData icon){
 
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  
+  MyController myController = Get.put(MyController());
+
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final passwordRetypeController = TextEditingController();
@@ -50,11 +53,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
             SizedBox(height: 23*size.height/896,),
             Text('Familiar Stranger', style: TextStyle( color: primaryText, fontFamily: 'NewRocker', fontSize: 35*size.height/896),),
             SizedBox(height: 53*size.height/896,),
-            PhoneField(controller: phoneController),
+            PhoneField(controller: phoneController,hint: 'PhoneNumber',),
             SizedBox(height: 23*size.height/896,),
-            PasswordField(controller: passwordController, press: (){},),
+            PasswordField(controller: passwordController,hint: 'Password', press: (){},),
             SizedBox(height: 23*size.height/896,),
-            PasswordField(controller: passwordRetypeController, press: (){},),
+            PasswordField(controller: passwordRetypeController,hint: 'Retype password', press: (){},),
             SizedBox(height: 23*size.height/896,),
             CircleButton(press: () async {
               if(phoneController.text.isEmpty || passwordController.text.isEmpty|| passwordRetypeController.text.isEmpty){
@@ -65,7 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 showSnackbar('Sign Up fail','Password don\'t match',Icons.error);
                 return;
               }
-              var result = await submitSignUp(phoneController.text, passwordController.text);
+              var result = await myController.signUp(phoneController.text, passwordController.text);
               result ? {
                 Get.back(result: {"phoneNumber":phoneController.text, "password":passwordController.text}),
                 showSnackbar('Sign Up Success','Login pls',Icons.check)}

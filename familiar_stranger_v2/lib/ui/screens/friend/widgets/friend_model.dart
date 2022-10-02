@@ -47,7 +47,7 @@ class _FriendModelState extends State<FriendModel> {
                 onTap: () {},
                 child: CircleAvatar(
                   backgroundImage: NetworkImage(myController
-                      .currentUser.value.imageId![0].imageUrl
+                      .currentUser.value.listImage![0].imageUrl
                       .toString()),
                   radius: 95.0,
                 ),

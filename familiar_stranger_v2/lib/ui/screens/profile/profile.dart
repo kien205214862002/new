@@ -1,6 +1,5 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
 import 'package:familiar_stranger_v2/controllers/myController.dart';
-import 'package:familiar_stranger_v2/services/api.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/home_bg.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/buttons/round_button.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/widgets/avatar.dart';
@@ -19,19 +18,19 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-  Future<void> pickImage() async {
-    try {
-      final ImagePicker imagePicker = ImagePicker();
-      var image = await imagePicker.pickImage(source: ImageSource.gallery);
-      if(image!=null){
-        Future.delayed(Duration.zero,()async{
-          await uploadAvatar(image.path.toString());
-        });
-      }
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
+  // Future<void> pickImage() async {
+  //   try {
+  //     final ImagePicker imagePicker = ImagePicker();
+  //     var image = await imagePicker.pickImage(source: ImageSource.gallery);
+  //     if(image != null) {
+  //       Future.delayed(Duration.zero,()async{
+  //         await uploadAvatar(image.path.toString());
+  //       });
+  //     }
+  //   } catch (e) {
+  //     debugPrint(e.toString());
+  //   }
+  // }
 
 class _ProfileScreenState extends State<ProfileScreen> {
 
@@ -102,17 +101,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Avatar(
                               size: size,
                               onPressed: () {
-                                debugPrint(myController.currentUser.value.listFriendId.toString());
-                                //pickImage();
+                                myController.upAvatar();
                               },
-                            ),
-                            SizedBox(
-                              width: 15 * size.width / 414,
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                SizedBox(height: 70 * size.height / 896),
+                                SizedBox(height: 40 * size.height / 896),
                                 Obx(
                                   () => Text(
                                     myController.currentUser.value.username.toString(),
@@ -124,7 +119,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 Obx(
                                   () => Text(
-                                    myController.currentUser.value.username.toString(),
+                                    myController.currentUser.value.emotion.toString(),
                                     style: const TextStyle(
                                         color: primaryText, fontSize: 14),
                                   ),
@@ -214,9 +209,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     name: myController.currentUser.value.username.toString(),
                                     birth: int.parse(
                                         myController.currentUser.value.yearOfB.toString()),
-                                    genderLink: 'assets/icons/Call.png',
-                                    description:
-                                        '................................................................',
+                                    genderLink: myController.currentUser.value.sex.toString() == 'male'
+                                    ? 'assets/icons/Call.png'
+                                    : 'assets/icons/Call-1.png',
+                                    description: myController.currentUser.value.description.toString(),
                                     status:
                                         '........................................................................',
                                   ),

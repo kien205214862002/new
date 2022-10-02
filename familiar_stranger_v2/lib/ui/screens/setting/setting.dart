@@ -4,7 +4,6 @@ import 'package:familiar_stranger_v2/ui/components/backgrounds/home_bg.dart';
 import 'package:familiar_stranger_v2/ui/screens/setting/widgets/click_item.dart';
 import 'package:familiar_stranger_v2/ui/screens/setting/widgets/switch_item.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:get/get.dart';
 
@@ -19,8 +18,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
   final userData = GetStorage();
 
- final SettingController settingController = Get.put(SettingController());
-
+  SettingController settingController = Get.put(SettingController());
 
   @override
   Widget build(BuildContext context) {

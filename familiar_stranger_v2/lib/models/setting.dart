@@ -3,7 +3,7 @@ class Setting {
   bool? sound;
   bool? vibration;
   bool? notification;
-  bool? status;
+  String? status;
 
   Setting(
       {this.id, this.sound, this.vibration, this.notification, this.status});

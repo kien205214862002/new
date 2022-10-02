@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class YearTextField extends StatelessWidget {
   TextEditingController controller;
-  YearTextField({Key? key, required this.controller}) : super(key: key);
+  String hint;
+  YearTextField({Key? key, required this.controller, required this.hint}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +28,10 @@ class YearTextField extends StatelessWidget {
         controller: controller,
         style: const TextStyle(
             fontSize: 18, color: primaryText, fontFamily: 'Poppins'),
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: 'Year',
-          hintStyle: TextStyle(color: primaryText),
+          hintText: hint,
+          hintStyle: TextStyle(color: primaryText.withOpacity(0.5)),
           isCollapsed: true,
         ),
       ),

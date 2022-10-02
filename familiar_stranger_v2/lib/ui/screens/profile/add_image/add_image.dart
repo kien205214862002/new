@@ -94,6 +94,7 @@ class _AddImageScreenState extends State<AddImageScreen> {
                   MultilineTextField(
                     onChanged: (value) {},
                     controller: description,
+                    hint: '',
                   ),
                   SizedBox(height: 24 * size.height / 896),
                   Row(

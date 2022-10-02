@@ -5,6 +5,7 @@ import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/left_click.dart'
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/phone_textfield.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/right_click.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class VerifyScreen extends StatefulWidget {
   const VerifyScreen({Key? key}) : super(key: key);
@@ -13,8 +14,17 @@ class VerifyScreen extends StatefulWidget {
   State<VerifyScreen> createState() => _VerifyScreenState();
 }
 
+showSnackbar(title, message, IconData icon) {
+  Get.snackbar(title, message,
+      snackPosition: SnackPosition.BOTTOM,
+      icon: Icon(icon, color: Colors.white));
+}
+
 class _VerifyScreenState extends State<VerifyScreen> {
-  final phoneController = TextEditingController();
+
+ var argumentData = Get.arguments;
+
+  final codeController = TextEditingController();
   bool remember = false;
   @override
   Widget build(BuildContext context) {
@@ -40,9 +50,15 @@ class _VerifyScreenState extends State<VerifyScreen> {
             SizedBox(height: 82*size.height/896,),
             Text("Type imcoming mesage's code:", style: TextStyle( color: primaryText, fontSize: 18*size.height/896),),
             SizedBox(height: 21*size.height/896,),
-            PhoneField(controller: phoneController),
+            PhoneField(controller: codeController,hint: 'Code',),
             SizedBox(height: 15*size.height/896,),
-            CircleButton(press: (){}, title: 'GET'),
+            CircleButton(press: (){
+              if(argumentData['code'].toString() == codeController.text.toString()){
+                Get.toNamed('/resetPasswordScreen',arguments: {'phoneNumber':argumentData['phoneNumber'].toString()});
+              } else {
+                showSnackbar('Verify fail', 'Check code again pls', Icons.error);
+              }
+            }, title: 'GET'),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,

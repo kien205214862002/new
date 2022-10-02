@@ -7,12 +7,13 @@ class User {
   String? phoneNumber;
   String? password;
   String? role;
+  String? emotion;
+  String? description;
   String? idFake;
   List<String>? listFriendId;
-  List<Image>? imageId;
+  List<Image>? listImage;
   String? yearOfB;
   String? sex;
-  String? recentState;
   Setting? settingId;
   String? token;
 
@@ -22,12 +23,13 @@ class User {
       this.phoneNumber,
       this.password,
       this.role,
+      this.emotion,
+      this.description,
       this.idFake,
       this.listFriendId,
-      this.imageId,
+      this.listImage,
       this.yearOfB,
       this.sex,
-      this.recentState,
       this.settingId,
       this.token});
 
@@ -37,17 +39,18 @@ class User {
     phoneNumber = json['phoneNumber'];
     password = json['password'];
     role = json['role'];
+    emotion = json['emotion'];
+    description = json['description'];
     idFake = json['id_fake'];
     listFriendId = json['listFriendId'].cast<String>();
-    if (json['imageId'] != null) {
-      imageId = <Image>[];
-      json['imageId'].forEach((v) {
-        imageId!.add(Image.fromJson(v));
+    if (json['listImage'] != null) {
+      listImage = <Image>[];
+      json['listImage'].forEach((v) {
+        listImage!.add(Image.fromJson(v));
       });
     }
     yearOfB = json['yearOfB'];
     sex = json['sex'];
-    recentState = json['recentState'];
     settingId = Setting.fromJson(json['settingId']);
     token = json['token'];
   }
@@ -59,13 +62,14 @@ class User {
     data['phoneNumber'] = phoneNumber;
     data['password'] = password;
     data['role'] = role;
+    data['emotion'] = emotion;
+    data['description'] = description;
     data['id_fake'] = idFake;
     data['listFriendId'] = listFriendId;
-    if (imageId != null) {
-      data['imageId'] = imageId!.map((v) => v.toJson()).toList();
+    if (listImage != null) {
+      data['listImage'] = listImage!.map((v) => v.toJson()).toList();
     }    data['yearOfB'] = yearOfB;
     data['sex'] = sex;
-    data['recentState'] = recentState;
     data['settingId'] = settingId;
     data['token'] = token;
     return data;

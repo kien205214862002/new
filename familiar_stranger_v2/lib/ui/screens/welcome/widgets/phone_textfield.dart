@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class PhoneField extends StatelessWidget {
   TextEditingController controller;
-  PhoneField({Key? key, required this.controller}) : super(key: key);
+  String hint;
+  PhoneField({Key? key, required this.hint, required this.controller}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +29,10 @@ class PhoneField extends StatelessWidget {
         controller: controller,
         style: const TextStyle(
             fontSize: 18, color: primaryText, fontFamily: 'Poppins'),
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: 'Email',
-          hintStyle: TextStyle(color: primaryText),
+          hintText: hint,
+          hintStyle: const TextStyle(color: primaryText),
           isCollapsed: true,
         ),
       ),

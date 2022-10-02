@@ -1,5 +1,6 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
 import 'package:familiar_stranger_v2/controllers/myController.dart';
+import 'package:familiar_stranger_v2/models/user.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/home_bg.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/buttons/round_button.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/textfields/multiline_textfield.dart';
@@ -18,14 +19,17 @@ class EditScreen extends StatefulWidget {
 class _EditScreenState extends State<EditScreen> {
   MyController myController = Get.put(MyController());
 
-  final username = TextEditingController();
-  final emotion = TextEditingController();
-  final fullname = TextEditingController();
-  final year = TextEditingController();
-  final description = TextEditingController();
-  final status = TextEditingController();
+  final usernameController = TextEditingController();
+  final emotionController = TextEditingController();
+  final fullnameController = TextEditingController();
+  final yearController = TextEditingController();
+  final descriptionController = TextEditingController();
+  final statusController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+
+    var tempUser = myController.currentUser.value;
+
     Size size = MediaQuery.of(context).size;
     return SafeArea(
         child: Scaffold(
@@ -56,13 +60,20 @@ class _EditScreenState extends State<EditScreen> {
                   right: 5.0 * size.width / 414, top: 5.0 * size.height / 896),
               child: GestureDetector(
                   onTap: () async {
+                    
+                    if(usernameController.text.trim().isEmpty 
+                    && emotionController.text.trim().isEmpty 
+                    && yearController.text.trim().isEmpty 
+                    && descriptionController.text.trim().isEmpty){
+                      return;
+                    }
+
                     myController.updateProfile(
-                        username.text,
-                        emotion.text,
-                        fullname.text,
-                        year.text,
-                        description.text,
-                        status.text);
+                        usernameController.text.trim(),
+                        emotionController.text.trim(),
+                        yearController.text.trim(),
+                        descriptionController.text.trim());
+                    Get.back();    
                   },
                   child: Image.asset(
                     'assets/icons/Save.png',
@@ -82,9 +93,9 @@ class _EditScreenState extends State<EditScreen> {
                   SizedBox(
                     height: 20 * size.height / 896,
                   ),
-                  OneLineTextField(controller: username, hint: 'Username'),
+                  OneLineTextField(controller: usernameController, hint: tempUser.username.toString()),
                   SizedBox(height: 24 * size.height / 896),
-                  OneLineTextField(controller: emotion, hint: 'Emotion'),
+                  OneLineTextField(controller: emotionController, hint: tempUser.emotion.toString()),
                   SizedBox(height: 24 * size.height / 896),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -99,7 +110,7 @@ class _EditScreenState extends State<EditScreen> {
                       SizedBox(
                         width: 24 * size.width / 414,
                       ),
-                      YearTextField(controller: year),
+                      YearTextField(controller: yearController, hint: tempUser.yearOfB.toString()),
                       SizedBox(
                         width: 24 * size.width / 414,
                       ),
@@ -115,10 +126,11 @@ class _EditScreenState extends State<EditScreen> {
                   SizedBox(height: 24 * size.height / 896),
                   MultilineTextField(
                     onChanged: (value) {},
-                    controller: description,
+                    controller: descriptionController,
+                    hint: tempUser.description.toString(),
                   ),
                   SizedBox(height: 24 * size.height / 896),
-                  OneLineTextField(controller: status, hint: 'Status'),
+                  OneLineTextField(controller: statusController, hint: 'Status'),
                   SizedBox(height: 50 * size.height / 896),
                   const Text(
                     'Images:',

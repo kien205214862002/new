@@ -1,6 +1,5 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
 import 'package:familiar_stranger_v2/controllers/myController.dart';
-import 'package:familiar_stranger_v2/services/api.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/welcome_bg.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/circle_button.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/left_click.dart';
@@ -10,7 +9,6 @@ import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/remember.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/right_click.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -28,29 +26,6 @@ showSnackbar(title, message, IconData icon) {
 class _LoginScreenState extends State<LoginScreen> {
 
   MyController myController = Get.put(MyController());
-
-  final userData = GetStorage();
-
-  @override
-  void initState() {
-    super.initState();
-    userData.writeIfNull('isLogged', false);
-    // Future.delayed(Duration.zero,()async{
-    //   checkIfLogged();
-    // });
-  }
-
-  Future<void> checkIfLogged() async {
-    if (userData.read('isLogged')) {
-      var result = await getUser(userData.read('token'));
-      result?{
-        Get.offNamed('/mainScreen')
-      }:{
-        userData.write('isLogged', false),
-        userData.remove('token')
-      };
-    }
-  }
 
   bool checkIsEmpty(){
     if (phoneController.text.isEmpty || passwordController.text.isEmpty) {
@@ -95,12 +70,13 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: 53 * size.height / 896,
             ),
-            PhoneField(controller: phoneController),
+            PhoneField(controller: phoneController,hint: 'PhoneNumber',),
             SizedBox(
               height: 23 * size.height / 896,
             ),
             PasswordField(
               controller: passwordController,
+              hint: 'Password',
               press: () {},
             ),
             SizedBox(
@@ -115,9 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   checkIsEmpty()?{
                     showSnackbar('Login fail', 'Missing phoneNumber and/or password', Icons.error)
                   }:{
-                    (await submitLogin(phoneController.text, passwordController.text))?{
-                      userData.write('token', myController.currentUser.value.token),
-                      userData.write('isLogged', true),
+                    (await myController.login(phoneController.text, passwordController.text))?{
                       Get.offNamed('/mainScreen')
                     }:{
                       showSnackbar('Login fail','Incorrect phoneNumber or password', Icons.error)
