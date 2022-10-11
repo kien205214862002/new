@@ -18,20 +18,6 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-  // Future<void> pickImage() async {
-  //   try {
-  //     final ImagePicker imagePicker = ImagePicker();
-  //     var image = await imagePicker.pickImage(source: ImageSource.gallery);
-  //     if(image != null) {
-  //       Future.delayed(Duration.zero,()async{
-  //         await uploadAvatar(image.path.toString());
-  //       });
-  //     }
-  //   } catch (e) {
-  //     debugPrint(e.toString());
-  //   }
-  // }
-
 class _ProfileScreenState extends State<ProfileScreen> {
 
   MyController myController = Get.put(MyController());
@@ -98,12 +84,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Avatar(
-                              size: size,
-                              onPressed: () {
-                                myController.upAvatar();
-                              },
-                            ),
+                            Obx(() => Avatar(
+                                size: size,
+                                url: myController.currentUser.value.listImage![0].imageUrl.toString(),
+                                onPressed: () {
+                                  myController.upAvatar();
+                                },
+                            ),),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [

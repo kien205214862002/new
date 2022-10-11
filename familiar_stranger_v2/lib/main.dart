@@ -1,8 +1,5 @@
 import 'package:familiar_stranger_v2/config/themes/theme.dart';
-import 'package:familiar_stranger_v2/controllers/setting/setting_controller.dart';
-import 'package:familiar_stranger_v2/ui/screens/chat/music/music.dart';
 import 'package:familiar_stranger_v2/ui/screens/home/mainscreen.dart';
-import 'package:familiar_stranger_v2/ui/screens/profile/add_image/add_image.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/edit/edit.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/forgot/forgot.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/forgot/reset_password.dart';

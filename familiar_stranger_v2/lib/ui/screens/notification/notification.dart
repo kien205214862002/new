@@ -80,7 +80,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               return TypeNotification(
                                   type: 'Request Follow',
                                   content: 'Guinea want to ',
-                                  accept: () {},
+                                  accept: () {
+                                    print('ok');
+                                  },
                                   reject: () {});
                             },
                           ),

@@ -11,6 +11,7 @@ class User {
   String? description;
   String? idFake;
   List<String>? listFriendId;
+  List<String>? listPendingFriend;
   List<Image>? listImage;
   String? yearOfB;
   String? sex;
@@ -27,6 +28,7 @@ class User {
       this.description,
       this.idFake,
       this.listFriendId,
+      this.listPendingFriend,
       this.listImage,
       this.yearOfB,
       this.sex,
@@ -42,7 +44,8 @@ class User {
     emotion = json['emotion'];
     description = json['description'];
     idFake = json['id_fake'];
-    listFriendId = json['listFriendId'].cast<String>();
+    listFriendId = json['listFriendId']?.cast<String>();
+    listPendingFriend = json['listPendingFriend']?.cast<String>();
     if (json['listImage'] != null) {
       listImage = <Image>[];
       json['listImage'].forEach((v) {
@@ -51,7 +54,9 @@ class User {
     }
     yearOfB = json['yearOfB'];
     sex = json['sex'];
-    settingId = Setting.fromJson(json['settingId']);
+    if(json['settingId'] != null){
+      settingId = Setting.fromJson(json['settingId']);
+    }  
     token = json['token'];
   }
 
@@ -66,6 +71,7 @@ class User {
     data['description'] = description;
     data['id_fake'] = idFake;
     data['listFriendId'] = listFriendId;
+    data['listPendingFriend'] = listPendingFriend;
     if (listImage != null) {
       data['listImage'] = listImage!.map((v) => v.toJson()).toList();
     }    data['yearOfB'] = yearOfB;

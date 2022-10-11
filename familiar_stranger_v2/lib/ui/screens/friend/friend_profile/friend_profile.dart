@@ -1,14 +1,17 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
+import 'package:familiar_stranger_v2/models/user.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/home_bg.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/buttons/round_button.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/widgets/avatar.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/widgets/image_show.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/widgets/intro_container.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FriendProfileScreen extends StatefulWidget {
-  const FriendProfileScreen({Key? key}) : super(key: key);
-
+  
+  FriendProfileScreen({Key? key, required this.friendAcc}) : super(key: key);
+  Rx<User> friendAcc;
   @override
   State<FriendProfileScreen> createState() => _FriendProfileScreenState();
 }
@@ -89,6 +92,7 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                           children: [
                             Avatar(
                               size: size,
+                              url: widget.friendAcc.value.listImage![0].imageUrl.toString(),
                               onPressed: () {},
                             ),
                             SizedBox(
@@ -190,11 +194,11 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                                   ))
                                 ])
                               : IntroContainer(
-                                name: 'Tran Thanh Trung',
-                                birth: 2001,
+                                name: widget.friendAcc.value.username.toString(),
+                                birth: int.parse(widget.friendAcc.value.yearOfB.toString()),
                                 genderLink: 'assets/icons/Call.png',
-                                description: '................................................................',
-                                status: '........................................................................',
+                                description: widget.friendAcc.value.description.toString(),
+                                status: widget.friendAcc.value.emotion.toString()
                               ),
                         )
                       ],

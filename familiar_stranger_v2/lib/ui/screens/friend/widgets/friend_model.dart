@@ -1,18 +1,19 @@
 import 'package:familiar_stranger_v2/config/utils/app_colors.dart';
 import 'package:familiar_stranger_v2/controllers/myController.dart';
-import 'package:familiar_stranger_v2/services/api.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class FriendModel extends StatefulWidget {
   String friendName;
+  String avatarUrl;
   Color color;
   String status;
   VoidCallback onPressed;
   FriendModel({
     Key? key,
     required this.friendName,
+    required this.avatarUrl,
     required this.color,
     required this.status,
     required this.onPressed,
@@ -46,9 +47,7 @@ class _FriendModelState extends State<FriendModel> {
               child: GestureDetector(
                 onTap: () {},
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(myController
-                      .currentUser.value.listImage![0].imageUrl
-                      .toString()),
+                  backgroundImage: NetworkImage(widget.avatarUrl),
                   radius: 95.0,
                 ),
               ),

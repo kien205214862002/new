@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 
 class MyController extends GetxController {
   late Rx<User> currentUser;
+  List<Rx<User>> currentListFriend = [];
 
   Future<bool> checkExists(phoneNumber) async {
     if (await checkUserExits(phoneNumber)) {
@@ -31,14 +32,15 @@ class MyController extends GetxController {
 
   Future<bool> login(phoneNumber, password) async {
     if (await submitLogin(phoneNumber, password)) {
-      return true;
+      return await getListFriend();
+      //return true;
     }
     return false;
   }
 
   Future<bool> loginByToken() async {
     if (await getUser()) {
-      return true;
+      return await getListFriend();
     }
     return false;
   }
