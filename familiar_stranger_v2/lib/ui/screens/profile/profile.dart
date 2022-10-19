@@ -229,7 +229,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   GestureDetector(
                     onTap: () {},
                     child: Image.asset(
-                      'assets/icons/Following-1.png',
+                      'assets/icons/Add.png',
                       scale: 4,
                     ),
                   ),

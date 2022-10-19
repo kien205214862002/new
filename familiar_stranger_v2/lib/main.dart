@@ -1,5 +1,6 @@
 import 'package:familiar_stranger_v2/config/themes/theme.dart';
 import 'package:familiar_stranger_v2/ui/screens/home/mainscreen.dart';
+import 'package:familiar_stranger_v2/ui/screens/open_image/image.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/edit/edit.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/forgot/forgot.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/forgot/reset_password.dart';

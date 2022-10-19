@@ -8,7 +8,14 @@ class MessagageBar extends StatefulWidget {
   VoidCallback pressEmoji;
   VoidCallback pressImage;
   VoidCallback sendMessage;
-  MessagageBar({Key? key, required this.controller, required this.pressRecord,required this.pressEmoji, required this.pressImage, required this.sendMessage}) : super(key: key);
+  MessagageBar(
+      {Key? key,
+      required this.controller,
+      required this.pressRecord,
+      required this.pressEmoji,
+      required this.pressImage,
+      required this.sendMessage})
+      : super(key: key);
 
   @override
   State<MessagageBar> createState() => _MessagageBarState();
@@ -17,13 +24,16 @@ class MessagageBar extends StatefulWidget {
 class _MessagageBarState extends State<MessagageBar> {
   @override
   Widget build(BuildContext context) {
-    Size size =MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     return Container(
-      height: 65*size.height/896,
+      height: 65 * size.height / 896,
       decoration: BoxDecoration(
         color: secondaryText,
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0),),
-        border: Border.all(color: secondaryColor, width: 3.0 ),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(8.0),
+          topRight: Radius.circular(8.0),
+        ),
+        border: Border.all(color: secondaryColor, width: 3.0),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -31,20 +41,29 @@ class _MessagageBarState extends State<MessagageBar> {
         children: [
           GestureDetector(
             onTap: widget.pressRecord,
-            child: Image.asset('assets/icons/Add Record.png', scale: 4,),
+            child: Image.asset(
+              'assets/icons/Add Record.png',
+              scale: 4,
+            ),
           ),
           GestureDetector(
             onTap: widget.pressEmoji,
-            child: Image.asset('assets/icons/Sleeping.png', scale: 4,),
+            child: Image.asset(
+              'assets/icons/Sleeping.png',
+              scale: 4,
+            ),
           ),
           GestureDetector(
             onTap: widget.pressImage,
-            child: Image.asset('assets/icons/Image.png', scale: 4,),
+            child: Image.asset(
+              'assets/icons/Image.png',
+              scale: 4,
+            ),
           ),
           Container(
-            padding: EdgeInsets.only(top: 5.0*size.height/896),
-            height: 55*size.height/896,
-            width: 260*size.width/414,
+            padding: EdgeInsets.only(top: 5.0 * size.height / 896),
+            height: 55 * size.height / 896,
+            width: 260 * size.width / 414,
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: fieldColor,
@@ -64,9 +83,11 @@ class _MessagageBarState extends State<MessagageBar> {
                 hintStyle: const TextStyle(color: fieldBG, fontSize: 16),
                 suffixIcon: GestureDetector(
                   onTap: widget.sendMessage,
-                  child: Image.asset('assets/icons/EmailSend.png', scale: 4,),
+                  child: Image.asset(
+                    'assets/icons/EmailSend.png',
+                    scale: 4,
+                  ),
                 ),
-
               ),
             ),
           )

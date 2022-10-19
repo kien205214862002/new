@@ -2,6 +2,7 @@ import 'package:familiar_stranger_v2/config/utils/export_file.dart';
 import 'package:familiar_stranger_v2/models/user.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/home_bg.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/buttons/round_button.dart';
+import 'package:familiar_stranger_v2/ui/screens/open_image/image.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/widgets/avatar.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/widgets/image_show.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/widgets/intro_container.dart';
@@ -75,33 +76,25 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          height: 160 * size.height / 896,
-                          width: size.width,
-                          decoration: BoxDecoration(
-                              color: fieldColor,
-                              border:
-                                  Border.all(color: fieldBorder, width: 2.5),
-                              borderRadius: const BorderRadius.only(
-                                  bottomRight: Radius.circular(45.0))),
-                          //WallPaper
-                          // child: ,
-                        ),
+                        
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Avatar(
                               size: size,
                               url: widget.friendAcc.value.listImage![0].imageUrl.toString(),
-                              onPressed: () {},
-                            ),
-                            SizedBox(
-                              width: 15 * size.width / 414,
+                              onPressed: () {
+                                Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ImageScreen(url:widget.friendAcc.value.listImage![0].imageUrl.toString(),)));
+                              },
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                SizedBox(height: 70 * size.height / 896),
+                                SizedBox(height: 40 * size.height / 896),
                                 const Text(
                                   'Name',
                                   style: TextStyle(
@@ -223,7 +216,8 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                     height: 10 * size.height / 896,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                    },
                     child: Image.asset(
                       'assets/icons/Following-1.png',
                       scale: 4,

@@ -143,9 +143,9 @@ class _ListFriendScreenState extends State<ListFriendScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(
-                            width: 50 * size.width / 414,
-                          ),
+                          // SizedBox(
+                          //   width: 50 * size.width / 414,
+                          // ),
                           SizedBox(
                             height: 50 * size.height / 896,
                             width: 163 * size.width / 414,

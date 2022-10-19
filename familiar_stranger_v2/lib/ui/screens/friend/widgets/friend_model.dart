@@ -44,12 +44,9 @@ class _FriendModelState extends State<FriendModel> {
                   color: secondaryText,
                   border: Border.all(color: fieldBorder, width: 2.5),
                   borderRadius: const BorderRadius.all(Radius.circular(200.0))),
-              child: GestureDetector(
-                onTap: () {},
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(widget.avatarUrl),
-                  radius: 95.0,
-                ),
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(widget.avatarUrl),
+                radius: 95.0,
               ),
             ),
             Container(

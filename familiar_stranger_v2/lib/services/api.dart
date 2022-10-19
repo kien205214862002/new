@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
-var ip = '172.17.10.241';
+var ip = '10.0.236.103';
 
 final userData = GetStorage();
 //var token = userData.read('token');
