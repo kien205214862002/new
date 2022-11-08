@@ -1,6 +1,5 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
-import 'package:familiar_stranger_v2/controllers/myController.dart';
-import 'package:familiar_stranger_v2/models/user.dart';
+import 'package:familiar_stranger_v2/controllers/user/userController.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/home_bg.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/buttons/round_button.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/textfields/multiline_textfield.dart';
@@ -17,7 +16,7 @@ class EditScreen extends StatefulWidget {
 }
 
 class _EditScreenState extends State<EditScreen> {
-  MyController myController = Get.put(MyController());
+  UserController userController = Get.put(UserController());
 
   final usernameController = TextEditingController();
   final emotionController = TextEditingController();
@@ -28,7 +27,7 @@ class _EditScreenState extends State<EditScreen> {
   @override
   Widget build(BuildContext context) {
 
-    var tempUser = myController.currentUser.value;
+    var tempUser = userController.currentUser.value;
 
     Size size = MediaQuery.of(context).size;
     return SafeArea(
@@ -68,7 +67,7 @@ class _EditScreenState extends State<EditScreen> {
                       return;
                     }
 
-                    myController.updateProfile(
+                    userController.updateProfile(
                         usernameController.text.trim(),
                         emotionController.text.trim(),
                         yearController.text.trim(),

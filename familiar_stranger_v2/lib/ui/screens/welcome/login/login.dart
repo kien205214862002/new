@@ -1,5 +1,5 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
-import 'package:familiar_stranger_v2/controllers/myController.dart';
+import 'package:familiar_stranger_v2/controllers/user/authController.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/welcome_bg.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/circle_button.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/left_click.dart';
@@ -25,7 +25,7 @@ showSnackbar(title, message, IconData icon) {
 
 class _LoginScreenState extends State<LoginScreen> {
 
-  MyController myController = Get.put(MyController());
+  AuthController authController = Get.put(AuthController());
 
   bool checkIsEmpty(){
     if (phoneController.text.isEmpty || passwordController.text.isEmpty) {
@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   checkIsEmpty()?{
                     showSnackbar('Login fail', 'Missing phoneNumber and/or password', Icons.error)
                   }:{
-                    (await myController.login(phoneController.text, passwordController.text))?{
+                    (await authController.login(phoneController.text, passwordController.text))?{
                       Get.offNamed('/mainScreen')
                     }:{
                       showSnackbar('Login fail','Incorrect phoneNumber or password', Icons.error)

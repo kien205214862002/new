@@ -1,5 +1,4 @@
 import 'package:familiar_stranger_v2/config/utils/app_colors.dart';
-import 'package:familiar_stranger_v2/controllers/myController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,7 +23,7 @@ class FriendModel extends StatefulWidget {
 }
 
 class _FriendModelState extends State<FriendModel> {
-  MyController myController = Get.put(MyController());
+  //UserController userController = Get.put(UserController());
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

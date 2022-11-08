@@ -1,6 +1,5 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
-import 'package:familiar_stranger_v2/controllers/myController.dart';
-import 'package:familiar_stranger_v2/models/user.dart';
+import 'package:familiar_stranger_v2/controllers/user/userController.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/home_bg.dart';
 import 'package:familiar_stranger_v2/ui/screens/friend/friend_profile/friend_profile.dart';
 import 'package:familiar_stranger_v2/ui/screens/friend/widgets/friend_model.dart';
@@ -16,7 +15,7 @@ class ListFriendScreen extends StatefulWidget {
 }
 
 class _ListFriendScreenState extends State<ListFriendScreen> {
-  MyController myController = Get.put(MyController());
+  UserController userController = Get.put(UserController());
   List<bool> isSelected = [true, false, false];
   @override
   Widget build(BuildContext context) {
@@ -172,32 +171,61 @@ class _ListFriendScreenState extends State<ListFriendScreen> {
                         height: 500 * size.height / 896,
                         child: ListView.separated(
                           // controller: ScrollController(),
-                          itemCount: myController.currentListFriend.length,
+                          itemCount: userController.currentListFriend.length,
                           itemBuilder: (_, index) {
-                            return (isSelected[0] == true ||
-                                    isSelected[2] == true)
-                                ? FriendModel(
-                                    friendName: myController
-                                        .currentListFriend[index].value.username
-                                        .toString(),
-                                    avatarUrl: myController
-                                        .currentListFriend[index]
-                                        .value
-                                        .listImage![0]
-                                        .imageUrl
-                                        .toString(),
-                                    status: 'Free',
-                                    color: Colors.green,
-                                    onPressed: () {
-                                      Get.to(FriendProfileScreen(friendAcc: myController.currentListFriend[index]));
-                                    },
-                                )
+                            return (isSelected[1] == false)
+                                ? (isSelected[2] == true)
+                                    ? FriendModel(
+                                        friendName: userController
+                                            .currentListFriend[index]
+                                            .value
+                                            .username
+                                            .toString(),
+                                        avatarUrl: userController
+                                            .currentListFriend[index]
+                                            .value
+                                            .listImage![0]
+                                            .imageUrl
+                                            .toString(),
+                                        status: userController
+                                            .currentListFriend[index]
+                                            .value
+                                            .settingId!
+                                            .status
+                                            .toString(),
+                                        color: Colors.green,
+                                        onPressed: () {
+                                          Get.to(FriendProfileScreen(
+                                              friendAcc: userController
+                                                  .currentListFriend[index]));
+                                        },
+                                      )
+                                    : FriendModel(
+                                        friendName: userController
+                                            .currentListFriend[index]
+                                            .value
+                                            .username
+                                            .toString(),
+                                        avatarUrl: userController
+                                            .currentListFriend[index]
+                                            .value
+                                            .listImage![0]
+                                            .imageUrl
+                                            .toString(),
+                                        status: 'Free',
+                                        color: Colors.green,
+                                        onPressed: () {
+                                          Get.to(FriendProfileScreen(
+                                              friendAcc: userController
+                                                  .currentListFriend[index]));
+                                        },
+                                      )
                                 : StrangerModel(
                                     friendName: '${index + 1}',
                                     status: 'Not Friend',
                                     onPressedAdd: () {},
                                     onPressed: () {},
-                                );
+                                  );
                           },
                           separatorBuilder: (BuildContext context, int index) {
                             return SizedBox(

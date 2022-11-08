@@ -1,5 +1,5 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
-import 'package:familiar_stranger_v2/controllers/myController.dart';
+import 'package:familiar_stranger_v2/controllers/user/authController.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/welcome_bg.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/circle_button.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/left_click.dart';
@@ -25,7 +25,7 @@ showSnackbar(title, message,IconData icon){
 
 class _SignUpScreenState extends State<SignUpScreen> {
   
-  MyController myController = Get.put(MyController());
+  AuthController authController = Get.put(AuthController());
 
   final phoneController = TextEditingController();
   final passwordController = TextEditingController();
@@ -68,7 +68,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 showSnackbar('Sign Up fail','Password don\'t match',Icons.error);
                 return;
               }
-              var result = await myController.signUp(phoneController.text, passwordController.text);
+              var result = await authController.signUp(phoneController.text, passwordController.text);
               result ? {
                 Get.back(result: {"phoneNumber":phoneController.text, "password":passwordController.text}),
                 showSnackbar('Sign Up Success','Login pls',Icons.check)}

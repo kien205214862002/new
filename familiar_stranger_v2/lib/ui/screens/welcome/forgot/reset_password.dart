@@ -1,5 +1,5 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
-import 'package:familiar_stranger_v2/controllers/myController.dart';
+import 'package:familiar_stranger_v2/controllers/user/authController.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/welcome_bg.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/circle_button.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/left_click.dart';
@@ -26,7 +26,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
   var argumentData = Get.arguments;
 
-  MyController myController = Get.put(MyController());
+  AuthController authController = Get.put(AuthController());
 
   final passwordController = TextEditingController();
   final passwordRetypeController = TextEditingController();
@@ -61,7 +61,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             SizedBox(height: 23*size.height/896,),
             CircleButton(press: () async {
               if(passwordController.text.toString() == passwordRetypeController.text.toString()){
-                var result = await myController.resetPassword(argumentData['phoneNumber'].toString(), passwordController.text.toString());
+                var result = await authController.resetPassword(argumentData['phoneNumber'].toString(), passwordController.text.toString());
                 if(result){
                   Get.offAllNamed('/loginScreen');
                   showSnackbar('Reset password success','Login pls',Icons.check);

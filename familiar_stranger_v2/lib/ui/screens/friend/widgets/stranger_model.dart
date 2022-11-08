@@ -1,6 +1,5 @@
 import 'package:familiar_stranger_v2/config/utils/app_colors.dart';
-import 'package:familiar_stranger_v2/controllers/myController.dart';
-import 'package:familiar_stranger_v2/services/api.dart';
+import 'package:familiar_stranger_v2/controllers/user/userController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -23,7 +22,7 @@ class StrangerModel extends StatefulWidget {
 }
 
 class _StrangerModelState extends State<StrangerModel> {
-  MyController myController = Get.put(MyController());
+  UserController userController = Get.put(UserController());
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -46,9 +45,7 @@ class _StrangerModelState extends State<StrangerModel> {
               child: GestureDetector(
                 onTap: () {},
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(myController
-                      .currentUser.value.listImage![0].imageUrl
-                      .toString()),
+                  backgroundImage: NetworkImage(userController.currentUser.value.listImage![0].imageUrl.toString()),
                   radius: 95.0,
                 ),
               ),

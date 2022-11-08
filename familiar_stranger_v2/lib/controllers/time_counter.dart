@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:familiar_stranger_v2/services/socketio.dart';
 import 'package:get/get.dart';
 
 class CounterController extends GetxController{
@@ -8,6 +9,7 @@ class CounterController extends GetxController{
   Timer? timer;
   void startCounter()
   {
+    startConnect();
     obxIsCounter.toggle();
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       obxCounterTime.value++;
@@ -17,6 +19,7 @@ class CounterController extends GetxController{
 
   void stopCounter()
   {
+    stopConnect();
     stopTimer();
     obxCounterTime.value = 0;
     obxIsCounter.toggle();

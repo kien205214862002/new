@@ -1,4 +1,7 @@
 import 'package:familiar_stranger_v2/config/themes/theme.dart';
+import 'package:familiar_stranger_v2/controllers/setting/setting_controller.dart';
+import 'package:familiar_stranger_v2/controllers/user/authController.dart';
+import 'package:familiar_stranger_v2/controllers/user/userController.dart';
 import 'package:familiar_stranger_v2/ui/screens/home/mainscreen.dart';
 import 'package:familiar_stranger_v2/ui/screens/open_image/image.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/edit/edit.dart';
@@ -29,6 +32,7 @@ class MyApp extends StatelessWidget {
       title: 'Familiar Stranger',
       theme: AppTheme.light,
       home: const SplashScreen(),
+      initialBinding: InitialBinding(),
       // home: const WelcomeScreen(),
       //initialRoute: '/loginScreen',
       getPages: [
@@ -41,5 +45,13 @@ class MyApp extends StatelessWidget {
         GetPage(name: "/resetPasswordScreen", page: () => const ResetPasswordScreen()),
       ],
     );
+  }
+}
+
+class InitialBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => SettingController(), fenix: true);
+    Get.lazyPut(() => UserController(), fenix: true);
   }
 }

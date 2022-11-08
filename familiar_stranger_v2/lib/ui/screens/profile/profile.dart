@@ -1,15 +1,12 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
-import 'package:familiar_stranger_v2/controllers/myController.dart';
+import 'package:familiar_stranger_v2/controllers/user/userController.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/home_bg.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/buttons/round_button.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/widgets/avatar.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/widgets/image_show.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/widgets/intro_container.dart';
-import 'package:familiar_stranger_v2/ui/screens/profile/widgets/wallpaper.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -20,7 +17,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
 
-  MyController myController = Get.put(MyController());
+  UserController userController = Get.put(UserController());
 
   bool isIntro = true;
 
@@ -86,9 +83,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             Obx(() => Avatar(
                                 size: size,
-                                url: myController.currentUser.value.listImage![0].imageUrl.toString(),
+                                url: userController.currentUser.value.listImage![0].imageUrl.toString(),
                                 onPressed: () {
-                                  myController.upAvatar();
+                                  userController.upAvatar();
                                 },
                             ),),
                             Column(
@@ -97,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 SizedBox(height: 40 * size.height / 896),
                                 Obx(
                                   () => Text(
-                                    myController.currentUser.value.username.toString(),
+                                    userController.currentUser.value.username.toString(),
                                     style: const TextStyle(
                                         color: primaryText,
                                         fontWeight: FontWeight.w800,
@@ -106,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 Obx(
                                   () => Text(
-                                    myController.currentUser.value.emotion.toString(),
+                                    userController.currentUser.value.emotion.toString(),
                                     style: const TextStyle(
                                         color: primaryText, fontSize: 14),
                                   ),
@@ -193,13 +190,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     )),
                                   ])
                                 : IntroContainer(
-                                    name: myController.currentUser.value.username.toString(),
+                                    name: userController.currentUser.value.username.toString(),
                                     birth: int.parse(
-                                        myController.currentUser.value.yearOfB.toString()),
-                                    genderLink: myController.currentUser.value.sex.toString() == 'male'
+                                        userController.currentUser.value.yearOfB.toString()),
+                                    genderLink: userController.currentUser.value.sex.toString() == 'male'
                                     ? 'assets/icons/Call.png'
                                     : 'assets/icons/Call-1.png',
-                                    description: myController.currentUser.value.description.toString(),
+                                    description: userController.currentUser.value.description.toString(),
                                     status:
                                         '........................................................................',
                                   ),

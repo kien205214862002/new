@@ -1,5 +1,6 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
 import 'package:familiar_stranger_v2/controllers/setting/setting_controller.dart';
+import 'package:familiar_stranger_v2/controllers/user/authController.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/home_bg.dart';
 import 'package:familiar_stranger_v2/ui/screens/setting/widgets/click_item.dart';
 import 'package:familiar_stranger_v2/ui/screens/setting/widgets/switch_item.dart';
@@ -18,6 +19,7 @@ class _SettingScreenState extends State<SettingScreen> {
 
   final userData = GetStorage();
 
+  AuthController authController = Get.put(AuthController());
   SettingController settingController = Get.put(SettingController());
 
   @override
@@ -57,9 +59,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   right: 5.0 * size.width / 414, top: 5.0 * size.height / 896),
               child: GestureDetector(
                   onTap: () {
-                    userData.remove('token');
-                    userData.write('isLogged', false);
-                    Get.offNamed('/loginScreen');
+                    authController.logout();
                   },
                   child: Image.asset(
                     'assets/icons/Logout.png',

@@ -1,5 +1,7 @@
-import 'package:familiar_stranger_v2/controllers/myController.dart';
 import 'package:familiar_stranger_v2/controllers/setting/setting_controller.dart';
+import 'package:familiar_stranger_v2/controllers/user/authController.dart';
+import 'package:familiar_stranger_v2/controllers/user/userController.dart';
+import 'package:familiar_stranger_v2/services/socketio.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/welcome_bg.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -14,14 +16,16 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
 
-  MyController myController = Get.put(MyController());
+  AuthController authController = Get.put(AuthController());
+  //fix bug
   SettingController settingController = Get.put(SettingController());
+  UserController userController = Get.put(UserController());
 
   final userData = GetStorage();
 
   Future<void> checkIfLogged() async {
     if (userData.read('isLogged')) {
-      var result = await myController.loginByToken();
+      var result = await authController.loginByToken();
       result?{
         Get.offNamed('/mainScreen')
       }:{
@@ -37,12 +41,13 @@ class _SplashScreenState extends State<SplashScreen> {
   bool opening = false;
   @override
   void initState(){
+    connectSocket();
     //userData.write('isLogged', false);
     userData.writeIfNull('isLogged', false);
 
     Future.delayed(const Duration(seconds: 1), (){
       setState(() {
-        opening = true;
+        opening = true; 
       });
     });
     super.initState();

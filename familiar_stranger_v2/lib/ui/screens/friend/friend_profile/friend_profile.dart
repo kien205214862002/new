@@ -95,16 +95,16 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 SizedBox(height: 40 * size.height / 896),
-                                const Text(
-                                  'Name',
-                                  style: TextStyle(
+                                Text(
+                                  widget.friendAcc.value.username.toString(),
+                                  style: const TextStyle(
                                       color: primaryText,
                                       fontWeight: FontWeight.w800,
                                       fontSize: 23),
                                 ),
-                                const Text(
-                                  'Short Description',
-                                  style: TextStyle(
+                                Text(
+                                  widget.friendAcc.value.description.toString(),
+                                  style: const TextStyle(
                                       color: primaryText, fontSize: 14),
                                 ),
                               ],

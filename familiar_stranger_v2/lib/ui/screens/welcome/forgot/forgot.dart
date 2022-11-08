@@ -1,5 +1,5 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
-import 'package:familiar_stranger_v2/controllers/myController.dart';
+import 'package:familiar_stranger_v2/controllers/user/authController.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/welcome_bg.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/circle_button.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/widgets/left_click.dart';
@@ -24,7 +24,7 @@ showSnackbar(title, message, IconData icon) {
 
 class _ForgotScreenState extends State<ForgotScreen> {
 
-  MyController myController = Get.put(MyController());
+  AuthController authController = Get.put(AuthController());
   
   final phoneController = TextEditingController();
   bool remember = false;
@@ -55,8 +55,8 @@ class _ForgotScreenState extends State<ForgotScreen> {
             PhoneField(controller: phoneController,hint: 'PhoneNumber',),
             SizedBox(height: 15*size.height/896,),
             CircleButton(press: () async {
-              if(await myController.checkExists(phoneController.text.toString())){
-                var code = await myController.sendMailGetCode(phoneController.text.toString());
+              if(await authController.checkExists(phoneController.text.toString())){
+                var code = await authController.sendMailGetCode(phoneController.text.toString());
                 Get.toNamed('/verifyScreen',arguments: {'code':code, 'phoneNumber':phoneController.text.toString()});
                 showSnackbar('Check your mail', 'Check code in your mail pls', Icons.check);
               } else {
