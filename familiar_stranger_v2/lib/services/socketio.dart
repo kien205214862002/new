@@ -7,7 +7,7 @@ late socketIO.Socket socket;
 ConversationController controller = Get.put(ConversationController());
 
 void connectSocket() {
-  socket = socketIO.io('http://192.168.0.196:3000', <String, dynamic>{
+  socket = socketIO.io('http://192.168.205.20:3000', <String, dynamic>{
     'transports': ['websocket'],
     'autoConnect': false,
   });
@@ -15,52 +15,49 @@ void connectSocket() {
   socket.on('connect', (data) {
     print('Connected');
 
-    socket.on('to-conversation', (data) => {
-      controller.toConversation(data)
-    });
+    socket.on('to-conversation', (data) => {controller.toConversation(data)});
 
-    socket.on('disconnect-conversation', (data) => {
-      Get.back()
-    });
+    socket.on('disconnect-conversation', (data) => {Get.back()});
 
-    socket.on('message', (data) => {
-      //print(data),
-      conversationController.updateListMessage(data)
-    });
+    socket.on(
+        'message',
+        (data) => {
+              //print(data),
+              conversationController.updateListMessage(data)
+            });
   });
 }
 
-void signinSocket(id){
+void signinSocket(id) {
   socket.emit('signin', id);
 }
 
-void logoutSocket(){
+void logoutSocket() {
   socket.emit('logout');
 }
 
-void disconnect(){
-
+void disconnect() {
   //socket.off('signin');
 
   socket.disconnect();
 
-  socket.on('disconnect',(data){
+  socket.on('disconnect', (data) {
     print('disconnect');
   });
 }
 
-void startConnect(){
+void startConnect() {
   socket.emit('start-connect');
 }
 
-void stopConnect(){
+void stopConnect() {
   socket.emit('stop-connect');
 }
 
-void disconnectConversation(){
+void disconnectConversation() {
   socket.emit('disconnect-conversation');
 }
 
-void message(data){
+void message(data) {
   socket.emit('message', data);
 }

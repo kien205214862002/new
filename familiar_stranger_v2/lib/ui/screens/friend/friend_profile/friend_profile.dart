@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FriendProfileScreen extends StatefulWidget {
-  
   FriendProfileScreen({Key? key, required this.friendAcc}) : super(key: key);
   Rx<User> friendAcc;
   @override
@@ -50,11 +49,14 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                 color: primaryText, fontSize: 25, fontWeight: FontWeight.w500),
           ),
           leading: GestureDetector(
-          onTap: (){
-            Navigator.of(context).pop();
-          },
-          child: Image.asset('assets/icons/Back_black.png', scale: 3.0,),
-        ),
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Image.asset(
+              'assets/icons/Back_black.png',
+              scale: 3.0,
+            ),
+          ),
           centerTitle: true,
           actions: [
             GestureDetector(
@@ -76,19 +78,20 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Avatar(
                               size: size,
-                              url: widget.friendAcc.value.listImage![0].imageUrl.toString(),
+                              url: widget.friendAcc.value.listImage![0].imageUrl
+                                  .toString(),
                               onPressed: () {
-                                Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ImageScreen(url:widget.friendAcc.value.listImage![0].imageUrl.toString(),)));
+                                final data = {
+                                  'imageLink': widget
+                                      .friendAcc.value.listImage![0].imageUrl
+                                      .toString(),
+                                };
+                                Get.toNamed('/image', parameters: data);
                               },
                             ),
                             Column(
@@ -164,9 +167,11 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                                   Radius.circular(15.0))),
                           child: isIntro == false
                               ? Stack(children: [
-                                  Positioned.fill(child: ImageShow(onChanged: (value){
-                                    //get the current image position in list
-                                  },)),
+                                  Positioned.fill(child: ImageShow(
+                                    onChanged: (value) {
+                                      //get the current image position in list
+                                    },
+                                  )),
                                   Positioned.fill(
                                       child: Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
@@ -187,12 +192,17 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                                   ))
                                 ])
                               : IntroContainer(
-                                name: widget.friendAcc.value.username.toString(),
-                                birth: int.parse(widget.friendAcc.value.yearOfB.toString()),
-                                genderLink: 'assets/icons/Call.png',
-                                description: widget.friendAcc.value.description.toString(),
-                                status: widget.friendAcc.value.emotion.toString()
-                              ),
+                                  name: widget.friendAcc.value.username
+                                      .toString(),
+                                  birth: int.parse(widget
+                                      .friendAcc.value.yearOfB
+                                      .toString()),
+                                  genderLink: 'assets/icons/Call.png',
+                                  description: widget
+                                      .friendAcc.value.description
+                                      .toString(),
+                                  status: widget.friendAcc.value.emotion
+                                      .toString()),
                         )
                       ],
                     ),
@@ -216,8 +226,7 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                     height: 10 * size.height / 896,
                   ),
                   GestureDetector(
-                    onTap: () {
-                    },
+                    onTap: () {},
                     child: Image.asset(
                       'assets/icons/Following-1.png',
                       scale: 4,

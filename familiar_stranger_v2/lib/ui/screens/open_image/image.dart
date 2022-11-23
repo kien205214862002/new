@@ -1,39 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
 
-// ignore: must_be_immutable
 class ImageScreen extends StatefulWidget {
-  String url;
-  ImageScreen({Key? key, required this.url}) : super(key: key);
+  const ImageScreen({Key? key}) : super(key: key);
 
   @override
   State<ImageScreen> createState() => _ImageScreenState();
 }
 
 class _ImageScreenState extends State<ImageScreen> {
+  String url = "";
+
+  @override
+  void initState() {
+    url = Get.parameters["imageLink"]!;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-            backgroundColor: Colors.black,
-            elevation: 0,
-            leading: Padding(
-              padding: EdgeInsets.only(top: 17.h, left: 10.w),
-              child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Icon(Icons.arrow_back_ios_new_rounded)),
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        elevation: 0,
+        leading: Padding(
+          padding: EdgeInsets.only(top: 17, left: 10),
+          child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: const Icon(Icons.arrow_back_ios_new_rounded)),
         ),
-        body: Container(
+      ),
+      body: Container(
           child: PhotoView(
-            imageProvider: NetworkImage(widget.url),
-          ),
-        ),
-        ));
+              imageProvider: NetworkImage(Get.parameters["imageLink"]!))),
+    );
   }
 }

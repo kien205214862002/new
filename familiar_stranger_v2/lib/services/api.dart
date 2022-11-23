@@ -9,14 +9,15 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
-var ip = '192.168.0.196';
+var ip = '192.168.205.20';
 
 final userData = GetStorage();
 //var token = userData.read('token');
 
 UserController userController = Get.put(UserController());
 SettingController settingController = Get.put(SettingController());
-ConversationController conversationController = Get.put(ConversationController());
+ConversationController conversationController =
+    Get.put(ConversationController());
 
 Future<bool> submitLogin(phoneNumber, password) async {
   try {
@@ -25,10 +26,12 @@ Future<bool> submitLogin(phoneNumber, password) async {
     var jsonData = jsonDecode(response.body);
     if (jsonData['success'] == true) {
       userController.currentUser = User.fromJson(jsonData['user']).obs;
-      userData.write('token', userController.currentUser.value.token.toString());
+      userData.write(
+          'token', userController.currentUser.value.token.toString());
       userData.write('isLogged', true);
 
-      settingController.initSetting(userController.currentUser.value.settingId!);
+      settingController
+          .initSetting(userController.currentUser.value.settingId!);
 
       debugPrint('Login successful');
       return true;
@@ -45,14 +48,13 @@ Future<bool> getListFriend() async {
   userController.currentListFriend = [];
   try {
     var response = await http.get(Uri.http('$ip:3000', '/user/friend'),
-    headers: ({"authorization": token}));
+        headers: ({"authorization": token}));
     var jsonData = jsonDecode(response.body);
-    if(jsonData['success'] == true){
-      jsonData['listFriendData'].forEach((v) {        
+    if (jsonData['success'] == true) {
+      jsonData['listFriendData'].forEach((v) {
         userController.currentListFriend.add(User.fromJson(v).obs);
       });
     }
-
   } catch (e) {
     debugPrint('err get list friend $e');
   }
@@ -115,7 +117,8 @@ Future<bool> getUserByToken() async {
     if (jsonData['success'] == true) {
       userController.currentUser = User.fromJson(jsonData['user']).obs;
 
-      settingController.initSetting(userController.currentUser.value.settingId!);
+      settingController
+          .initSetting(userController.currentUser.value.settingId!);
 
       return true;
     }
@@ -140,7 +143,6 @@ Future<bool> getUserByID(id) async {
     return false;
   }
 }
-
 
 Future<bool> changeSetting(position) async {
   var token = userController.currentUser.value.token.toString();
@@ -200,10 +202,12 @@ Future<bool> uploadAvatar(path) async {
     var jsonData = jsonDecode(resStr);
     if (jsonData['success']) {
       //print(myController.currentUser.value.listImage![0]);
-      Future.delayed(const Duration(seconds: 3),() async {
-          print(userController.currentUser.value.listImage![0].imageUrl.toString());
-        });
-      userController.currentUser.value.listImage![0] = img.Image.fromJson(jsonData['avatar']);
+      Future.delayed(const Duration(seconds: 3), () async {
+        print(
+            userController.currentUser.value.listImage![0].imageUrl.toString());
+      });
+      userController.currentUser.value.listImage![0] =
+          img.Image.fromJson(jsonData['avatar']);
       return true;
     }
     return false;

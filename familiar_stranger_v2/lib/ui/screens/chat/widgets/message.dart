@@ -27,23 +27,43 @@ class Message extends StatelessWidget {
               : MainAxisAlignment.end,
           children: [
             Container(
-                  padding: const EdgeInsets.all(10.0),
-                  constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width * 0.6),
-                  decoration: BoxDecoration(
-                    color: (isYour == false) ? secondaryText : secondaryColor,
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: (mess.isImage == false)
-                      ? Text(
-                          mess.content.toString(),
-                          style: TextStyle(
-                              color: (isYour == false)
-                                  ? primaryText
-                                  : secondaryText),
-                        )
-                      : Image.asset('assets/images/Vector.png', scale: 10)),
-            
+              height: 70 * size.height / 896,
+              width: 70 * size.height / 896,
+              decoration: BoxDecoration(
+                  color: secondaryText,
+                  border: Border.all(color: fieldBorder, width: 2.5),
+                  borderRadius: const BorderRadius.all(Radius.circular(200.0))),
+              child: CircleAvatar(
+                backgroundImage: NetworkImage(mess.avatarURl!),
+                radius: 95.0,
+              ),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Container(
+                padding: const EdgeInsets.all(10.0),
+                constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width * 0.6),
+                decoration: BoxDecoration(
+                  color: (isYour == false) ? secondaryText : secondaryColor,
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                child: (mess.isImage == false)
+                    ? Text(
+                        mess.content.toString(),
+                        style: TextStyle(
+                            color: (isYour == false)
+                                ? primaryText
+                                : secondaryText),
+                      )
+                    : GestureDetector(
+                        onTap: () {
+                          final data = {'imageLink': mess.content!};
+                          Get.toNamed('/image', parameters: data);
+                        },
+                        child: Image.asset('assets/images/Vector.png',
+                            scale: 10))),
           ],
         ),
       ],

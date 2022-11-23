@@ -45,7 +45,9 @@ class _StrangerModelState extends State<StrangerModel> {
               child: GestureDetector(
                 onTap: () {},
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(userController.currentUser.value.listImage![0].imageUrl.toString()),
+                  backgroundImage: NetworkImage(userController
+                      .currentUser.value.listImage![0].imageUrl
+                      .toString()),
                   radius: 95.0,
                 ),
               ),
@@ -71,8 +73,9 @@ class _StrangerModelState extends State<StrangerModel> {
                 GestureDetector(
                   onTap: widget.onPressedAdd,
                   child: Container(
-                    height: 70 * size.height / 896,
-                    width: 35 * size.width / 414,
+                    height: 35 * size.height / 896,
+                    width: 100 * size.width / 414,
+                    alignment: Alignment.center,
                     decoration: BoxDecoration(
                         border: Border.all(color: fieldBorder, width: 2),
                         color: thirdColor,
@@ -81,10 +84,9 @@ class _StrangerModelState extends State<StrangerModel> {
                     child: Text(
                       widget.status == 'Waiting' ? 'Wait' : 'Follow',
                       style: const TextStyle(
-                        fontSize: 13,
-                        color: secondaryText,
-                        fontWeight: FontWeight.w500
-                      ),
+                          fontSize: 13,
+                          color: secondaryText,
+                          fontWeight: FontWeight.w500),
                     ),
                   ),
                 ),
