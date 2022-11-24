@@ -5,7 +5,7 @@ const String appID = "1f34d2fafcb94412a9939349ce282aad";
 String token =
     "00617cb7ec4e5d845498de0f75eeac4273aIAAhwWV5ZL7WZcA4VwCdlc9NKH3KgkQ2csDgRiKjjuZI+mHTcgm379yDEADTR+sCyVB6YwEAAQDphXpj";
 //Channelid / channelName
-String channel = "trungggg_qwer";
+String channel = "trungggg_qwerr";
 //AppCertificate
 const appcertificate = "a26885dbbcda4b7297f66f16de59eae0";
 //userID -> Random

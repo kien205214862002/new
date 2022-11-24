@@ -2,6 +2,7 @@ import 'package:familiar_stranger_v2/config/utils/export_file.dart';
 import 'package:familiar_stranger_v2/services/calling_service.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/buttons/round_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 
@@ -27,6 +28,7 @@ class _VoiceCallingScreenState extends State<VoiceCallingScreen> {
     super.initState();
     voiceCallFunction.setupVoiceSDKEngine();
     voiceCallFunction.setInformation("trungggg_qwer");
+    // voiceCallFunction.setInformation(Get.parameters["chatroom"]!);
   }
 
   void pressMute() {

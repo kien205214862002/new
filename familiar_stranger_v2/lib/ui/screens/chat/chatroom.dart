@@ -124,7 +124,6 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     GestureDetector(
                       onTap: () {
                         final data = {
-                          "isVoice": "true",
                           "chatroom": "chatroomname",
                           "avt": "avatar"
                         };
@@ -141,7 +140,6 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     GestureDetector(
                       onTap: () {
                         final data = {
-                          "isVoice": "false",
                           "chatroom": "chatroomname",
                           "avt": "avatar"
                         };

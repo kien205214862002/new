@@ -24,7 +24,8 @@ class _VideoCallingScreenState extends State<VideoCallingScreen> {
   @override
   void initState() {
     setupVideoSDKEngine();
-    videoCallFunction.setInformation("trungggg_qwer");
+    videoCallFunction.setInformation(channel);
+    // videoCallFunction.setInformation(Get.parameters["chatroom"]!);
     // setState(() {
     //   _isJoined == true;
     // });

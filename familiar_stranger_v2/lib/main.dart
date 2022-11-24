@@ -34,8 +34,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Familiar Stranger',
       theme: AppTheme.light,
-      home: const SplashScreen(),
-      // home: const VoiceCallingScreen(),
+      // home: const SplashScreen(),
+      home: const VideoCallingScreen(),
       initialBinding: InitialBinding(),
 
       //initialRoute: '/loginScreen',
