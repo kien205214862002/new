@@ -122,7 +122,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                       height: 10 * size.height / 896,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        final data = {"isVoice": "true"};
+                        Get.toNamed('/calling', parameters: data);
+                      },
                       child: Image.asset(
                         'assets/icons/Call-1.png',
                         scale: 4,
@@ -132,7 +135,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                       height: 20 * size.height / 896,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        final data = {"isVoice": "false"};
+                        Get.toNamed('/calling', parameters: data);
+                      },
                       child: Image.asset(
                         'assets/icons/Video Call-1.png',
                         scale: 4,

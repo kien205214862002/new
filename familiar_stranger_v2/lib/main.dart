@@ -2,7 +2,8 @@ import 'package:familiar_stranger_v2/config/themes/theme.dart';
 import 'package:familiar_stranger_v2/controllers/setting/setting_controller.dart';
 import 'package:familiar_stranger_v2/controllers/user/authController.dart';
 import 'package:familiar_stranger_v2/controllers/user/userController.dart';
-import 'package:familiar_stranger_v2/ui/screens/chat/calling/calling.dart';
+import 'package:familiar_stranger_v2/ui/screens/chat/calling/video_calling.dart';
+import 'package:familiar_stranger_v2/ui/screens/chat/calling/voice_calling.dart';
 import 'package:familiar_stranger_v2/ui/screens/home/mainscreen.dart';
 import 'package:familiar_stranger_v2/ui/screens/open_image/image.dart';
 import 'package:familiar_stranger_v2/ui/screens/profile/edit/edit.dart';
@@ -33,8 +34,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Familiar Stranger',
       theme: AppTheme.light,
-      // home: const SplashScreen(),
-      home: const CallingScreen(),
+      home: const SplashScreen(),
+      // home: const VoiceCallingScreen(),
       initialBinding: InitialBinding(),
 
       //initialRoute: '/loginScreen',
@@ -54,6 +55,8 @@ class MyApp extends StatelessWidget {
             name: "/resetPasswordScreen",
             page: () => const ResetPasswordScreen()),
         GetPage(name: "/image", page: () => const ImageScreen()),
+        GetPage(name: "/voice_calling", page: () => const VoiceCallingScreen()),
+        GetPage(name: "/video_calling", page: () => const VideoCallingScreen()),
       ],
     );
   }
