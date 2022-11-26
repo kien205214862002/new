@@ -167,7 +167,9 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                                   Radius.circular(15.0))),
                           child: isIntro == false
                               ? Stack(children: [
-                                  Positioned.fill(child: ImageShow(
+                                  Positioned.fill(
+                                      child: ImageShow(
+                                    list: const ["1", "2"],
                                     onChanged: (value) {
                                       //get the current image position in list
                                     },

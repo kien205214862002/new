@@ -12,7 +12,8 @@ class Conversation extends StatefulWidget {
 }
 
 class _ConversationState extends State<Conversation> {
-  ConversationController conversationController = Get.put(ConversationController());
+  ConversationController conversationController =
+      Get.put(ConversationController());
   UserController userController = Get.put(UserController());
   bool isYour = false;
 
@@ -21,20 +22,24 @@ class _ConversationState extends State<Conversation> {
     Size size = MediaQuery.of(context).size;
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.0 * size.width / 414),
-      height: (896 - 50 - 75) * size.height / 896,
+      height: (896 - 50 - 75 - 100) * size.height / 896,
       width: double.infinity,
-      child: Obx(() => ListView.builder(
+      child: Obx(
+        () => ListView.builder(
+          // reverse: true,
+
           itemCount: conversationController.listMessage.length,
           itemBuilder: (BuildContext context, int index) {
-            if (userController.currentUser.value.id == conversationController.listMessage.elementAt(index).senderId) {
+            if (userController.currentUser.value.id ==
+                conversationController.listMessage.elementAt(index).senderId) {
               isYour = true;
-            }else{
+            } else {
               isYour = false;
             }
             return Message(
-                mess: conversationController.listMessage.elementAt(index),
-                isYour: isYour,
-              );
+              mess: conversationController.listMessage.elementAt(index),
+              isYour: isYour,
+            );
           },
         ),
       ),

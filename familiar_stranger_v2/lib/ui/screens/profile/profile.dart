@@ -16,7 +16,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
   UserController userController = Get.put(UserController());
 
   bool isIntro = true;
@@ -81,20 +80,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Obx(() => Avatar(
+                            Obx(
+                              () => Avatar(
                                 size: size,
-                                url: userController.currentUser.value.listImage![0].imageUrl.toString(),
+                                url: userController
+                                    .currentUser.value.listImage![0].imageUrl
+                                    .toString(),
                                 onPressed: () {
                                   userController.upAvatar();
                                 },
-                            ),),
+                              ),
+                            ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 SizedBox(height: 40 * size.height / 896),
                                 Obx(
                                   () => Text(
-                                    userController.currentUser.value.username.toString(),
+                                    userController.currentUser.value.username
+                                        .toString(),
                                     style: const TextStyle(
                                         color: primaryText,
                                         fontWeight: FontWeight.w800,
@@ -103,7 +107,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ),
                                 Obx(
                                   () => Text(
-                                    userController.currentUser.value.emotion.toString(),
+                                    userController.currentUser.value.emotion
+                                        .toString(),
                                     style: const TextStyle(
                                         color: primaryText, fontSize: 14),
                                   ),
@@ -163,9 +168,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   Border.all(color: fieldBorder, width: 2.5),
                               borderRadius: const BorderRadius.all(
                                   Radius.circular(15.0))),
-                          child: Obx(() => isIntro == false
+                          child: Obx(
+                            () => isIntro == false
                                 ? Stack(children: [
-                                    Positioned.fill(child: ImageShow(
+                                    Positioned.fill(
+                                        child: ImageShow(
+                                      list: const ["1", "2"],
                                       onChanged: (value) {
                                         //get the current image position in list
                                       },
@@ -190,13 +198,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     )),
                                   ])
                                 : IntroContainer(
-                                    name: userController.currentUser.value.username.toString(),
-                                    birth: int.parse(
-                                        userController.currentUser.value.yearOfB.toString()),
-                                    genderLink: userController.currentUser.value.sex.toString() == 'male'
-                                    ? 'assets/icons/Call.png'
-                                    : 'assets/icons/Call-1.png',
-                                    description: userController.currentUser.value.description.toString(),
+                                    name: userController
+                                        .currentUser.value.username
+                                        .toString(),
+                                    birth: int.parse(userController
+                                        .currentUser.value.yearOfB
+                                        .toString()),
+                                    genderLink: userController
+                                                .currentUser.value.sex
+                                                .toString() ==
+                                            'male'
+                                        ? 'assets/icons/Call.png'
+                                        : 'assets/icons/Call-1.png',
+                                    description: userController
+                                        .currentUser.value.description
+                                        .toString(),
                                     status:
                                         '........................................................................',
                                   ),

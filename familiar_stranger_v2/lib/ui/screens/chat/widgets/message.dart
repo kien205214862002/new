@@ -26,21 +26,27 @@ class Message extends StatelessWidget {
               ? MainAxisAlignment.start
               : MainAxisAlignment.end,
           children: [
-            Container(
-              height: 70 * size.height / 896,
-              width: 70 * size.height / 896,
-              decoration: BoxDecoration(
-                  color: secondaryText,
-                  border: Border.all(color: fieldBorder, width: 2.5),
-                  borderRadius: const BorderRadius.all(Radius.circular(200.0))),
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(mess.avatarURl!),
-                radius: 95.0,
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
+            (isYour == false)
+                ? Container(
+                    height: 50 * size.height / 896,
+                    width: 50 * size.height / 896,
+                    decoration: BoxDecoration(
+                        color: secondaryText,
+                        border: Border.all(color: fieldBorder, width: 2.5),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(200.0))),
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          mess.avatarURl ?? "https://i.imgur.com/n3nKtWa.jpg"),
+                      radius: 30.0,
+                    ),
+                  )
+                : Container(),
+            (isYour == false)
+                ? SizedBox(
+                    width: 10,
+                  )
+                : Container(),
             Container(
                 padding: const EdgeInsets.all(10.0),
                 constraints: BoxConstraints(
@@ -64,6 +70,27 @@ class Message extends StatelessWidget {
                         },
                         child: Image.asset('assets/images/Vector.png',
                             scale: 10))),
+            (isYour == true)
+                ? SizedBox(
+                    width: 10,
+                  )
+                : Container(),
+            (isYour == true)
+                ? Container(
+                    height: 50 * size.height / 896,
+                    width: 50 * size.height / 896,
+                    decoration: BoxDecoration(
+                        color: secondaryText,
+                        border: Border.all(color: fieldBorder, width: 2.5),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(200.0))),
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(
+                          mess.avatarURl ?? "https://i.imgur.com/n3nKtWa.jpg"),
+                      radius: 30.0,
+                    ),
+                  )
+                : Container(),
           ],
         ),
       ],

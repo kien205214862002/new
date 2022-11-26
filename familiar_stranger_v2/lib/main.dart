@@ -16,6 +16,7 @@ import 'package:familiar_stranger_v2/ui/screens/welcome/signup/signup.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/signup/waiting_before.dart';
 import 'package:familiar_stranger_v2/ui/screens/welcome/splash/splash.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -30,12 +31,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Familiar Stranger',
       theme: AppTheme.light,
-      // home: const SplashScreen(),
-      home: const VideoCallingScreen(),
+      home: const SplashScreen(),
+      // home: const VideoCallingScreen(),
       initialBinding: InitialBinding(),
 
       //initialRoute: '/loginScreen',

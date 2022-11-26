@@ -20,6 +20,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
       Get.put(ConversationController());
 
   TextEditingController messageTextController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -82,10 +83,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Expanded(
-                              child: Container(
-                                  padding: const EdgeInsets.only(top: 5.0),
-                                  child: Conversation())),
+                          Expanded(child: Conversation()),
                           MessagageBar(
                               controller: messageTextController,
                               pressRecord: () {},
@@ -99,6 +97,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                                     messageTextController.text.toString(),
                                     false);
                                 print('send message');
+                                messageTextController.clear();
                               })
                         ],
                       ),
