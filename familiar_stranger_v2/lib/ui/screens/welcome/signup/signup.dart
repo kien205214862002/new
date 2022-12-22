@@ -92,20 +92,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
             CircleButton(
                 press: () async {
                   ////uncommand this to use function
-                  // if(phoneController.text.isEmpty || passwordController.text.isEmpty|| passwordRetypeController.text.isEmpty){
-                  //   showSnackbar('Sign Up fail','Missing phoneNumber and/or password',Icons.error);
-                  //   return ;
-                  // }
-                  // if(passwordController.text != passwordRetypeController.text) {
-                  //   showSnackbar('Sign Up fail','Password don\'t match',Icons.error);
-                  //   return;
-                  // }
-                  // var result = await authController.signUp(phoneController.text, passwordController.text);
-                  // result ? {
-                  //   Get.back(result: {"phoneNumber":phoneController.text, "password":passwordController.text}),
-                  //   showSnackbar('Sign Up Success','Login pls',Icons.check)}
-                  //   :showSnackbar('Sign Up fail','User exists',Icons.error);
-                  Get.toNamed('/waitingScreen');
+                  if(phoneController.text.isEmpty || passwordController.text.isEmpty|| passwordRetypeController.text.isEmpty){
+                    showSnackbar('Sign Up fail','Missing phoneNumber and/or password',Icons.error);
+                    return ;
+                  }
+                  if(passwordController.text != passwordRetypeController.text) {
+                    showSnackbar('Sign Up fail','Password don\'t match',Icons.error);
+                    return;
+                  }
+                  var result = await authController.signUp(phoneController.text, passwordController.text);
+                  result ? {
+                    Get.back(result: {"phoneNumber":phoneController.text, "password":passwordController.text}),
+                    showSnackbar('Sign Up Success','Login pls',Icons.check)}
+                    :showSnackbar('Sign Up fail','User exists',Icons.error);
+                  //Get.toNamed('/beforLoginScreen');
                 },
                 title: 'GO'),
             Expanded(

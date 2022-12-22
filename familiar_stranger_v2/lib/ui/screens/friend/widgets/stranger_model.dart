@@ -7,12 +7,14 @@ import 'package:get/get.dart';
 class StrangerModel extends StatefulWidget {
   String friendName;
   String status;
+  String avatarUrl;
   VoidCallback onPressedAdd;
   VoidCallback onPressed;
   StrangerModel({
     Key? key,
     required this.friendName,
     required this.status,
+    required this.avatarUrl,
     required this.onPressedAdd,
     required this.onPressed,
   }) : super(key: key);
@@ -45,9 +47,7 @@ class _StrangerModelState extends State<StrangerModel> {
               child: GestureDetector(
                 onTap: () {},
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(userController
-                      .currentUser.value.listImage![0].imageUrl
-                      .toString()),
+                  backgroundImage: NetworkImage(widget.avatarUrl),
                   radius: 95.0,
                 ),
               ),

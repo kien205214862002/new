@@ -14,9 +14,14 @@ class ConversationController extends GetxController {
     RxList listMessage = [].obs;
 
     void sendMessage(userId, avtURL, content, isImage){
-      var mess = Message(senderId: userId, avatarURl: avtURL, content: content, isImage: isImage);
+      var mess = Message(senderId: userId, avatarURL: avtURL, content: content, isImage: isImage);
       message(mess.toJson());
     }
+
+    // void sendImageMessage(userId, avtURL, content, isImage){
+    //   var mess = Message(senderId: userId, avatarURL: avtURL, content: content, isImage: isImage);
+    //   message(mess.toJson());
+    // }
 
     void updateListMessage(data){
       var mess = Message.fromJson(data);
@@ -28,6 +33,7 @@ class ConversationController extends GetxController {
   Future<bool> toConversation(targerId) async {
     listMessage.length = 0 ;
     if (await getUserByID(targerId)) {
+      await addRecentConnect(targerId);
       counterController.stopCounter();
       Get.to(() => const ChatRoomScreen());
       return true;

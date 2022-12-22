@@ -1,4 +1,6 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
+import 'package:familiar_stranger_v2/controllers/user/authController.dart';
+import 'package:familiar_stranger_v2/controllers/user/notificationController.dart';
 import 'package:familiar_stranger_v2/models/user.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/home_bg.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/buttons/round_button.dart';
@@ -16,9 +18,16 @@ class FriendProfileScreen extends StatefulWidget {
   State<FriendProfileScreen> createState() => _FriendProfileScreenState();
 }
 
+showSnackbar(title, message, IconData icon) {
+  Get.snackbar(title, message,
+      snackPosition: SnackPosition.BOTTOM,
+      icon: Icon(icon, color: Colors.white));
+}
+
 class _FriendProfileScreenState extends State<FriendProfileScreen> {
   bool isIntro = true;
-
+  NotificationController notificationController =
+      Get.put(NotificationController());
   void changeButton() {
     setState(() {
       isIntro = !isIntro;
@@ -60,7 +69,9 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
           centerTitle: true,
           actions: [
             GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed('/reportScreen');
+                },
                 child: Image.asset(
                   'assets/icons/Error-1.png',
                   scale: 3.5,
@@ -169,29 +180,29 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                               ? Stack(children: [
                                   Positioned.fill(
                                       child: ImageShow(
-                                    list: const ["1", "2"],
+                                    list: widget.friendAcc.value.listImage!,
                                     onChanged: (value) {
                                       //get the current image position in list
                                     },
                                   )),
-                                  Positioned.fill(
-                                      child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: [
-                                      Container(
-                                        alignment: Alignment.center,
-                                        height: 123 * size.height / 896,
-                                        width: size.width * 0.891,
-                                        color: fieldBorder.withOpacity(0.4),
-                                        child: const Text(
-                                          'Data Friend',
-                                          style: TextStyle(
-                                              color: secondaryText,
-                                              fontSize: 18),
-                                        ),
-                                      )
-                                    ],
-                                  ))
+                                  // Positioned.fill(
+                                  //     child: Column(
+                                  //   mainAxisAlignment: MainAxisAlignment.end,
+                                  //   children: [
+                                  //     Container(
+                                  //       alignment: Alignment.center,
+                                  //       height: 123 * size.height / 896,
+                                  //       width: size.width * 0.891,
+                                  //       color: fieldBorder.withOpacity(0.4),
+                                  //       child: const Text(
+                                  //         'Data Friend',
+                                  //         style: TextStyle(
+                                  //             color: secondaryText,
+                                  //             fontSize: 18),
+                                  //       ),
+                                  //     )
+                                  //   ],
+                                  // ))
                                 ])
                               : IntroContainer(
                                   name: widget.friendAcc.value.username
@@ -199,7 +210,11 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                                   birth: int.parse(widget
                                       .friendAcc.value.yearOfB
                                       .toString()),
-                                  genderLink: 'assets/icons/Call.png',
+                                  genderLink:
+                                      widget.friendAcc.value.sex.toString() ==
+                                              'male'
+                                          ? 'assets/icons/Male.png'
+                                          : 'assets/icons/Female.png',
                                   description: widget
                                       .friendAcc.value.description
                                       .toString(),
@@ -238,7 +253,12 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                     height: 20 * size.height / 896,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      notificationController
+                          .sendInviteToRoom(widget.friendAcc.value.id);
+                      showSnackbar('Send invite to chatroom',
+                          'Please, watting for response', Icons.check);
+                    },
                     child: Image.asset(
                       'assets/icons/Chat-1.png',
                       scale: 4,

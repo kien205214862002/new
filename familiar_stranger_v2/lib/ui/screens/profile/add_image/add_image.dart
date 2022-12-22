@@ -1,12 +1,15 @@
 import 'dart:ui';
 
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
+import 'package:familiar_stranger_v2/controllers/user/authController.dart';
+import 'package:familiar_stranger_v2/controllers/user/userController.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/home_bg.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/buttons/round_button.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/textfields/multiline_textfield.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/textfields/oneline_textfield.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/textfields/year_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AddImageScreen extends StatefulWidget {
   const AddImageScreen({Key? key}) : super(key: key);
@@ -16,6 +19,9 @@ class AddImageScreen extends StatefulWidget {
 }
 
 class _AddImageScreenState extends State<AddImageScreen> {
+
+  UserController userController = Get.put(UserController());
+
   final description = TextEditingController();
   bool haveImage = false;
   @override
@@ -43,12 +49,12 @@ class _AddImageScreenState extends State<AddImageScreen> {
                 color: primaryText, fontSize: 25, fontWeight: FontWeight.w500),
           ),
           centerTitle: true,
-          leading: IconButton(
-              onPressed: () {},
-              icon: Image.asset(
-                'assets/icons/Back_black.png',
-                scale: 1 * size.width / 414,
-              )),
+          // leading: IconButton(
+          //     onPressed: () {},
+          //     icon: Image.asset(
+          //       'assets/icons/Back_black.png',
+          //       scale: 1 * size.width / 414,
+          //     )),
           // actions: [
           //   Padding(
           //     padding: EdgeInsets.only(
@@ -74,7 +80,7 @@ class _AddImageScreenState extends State<AddImageScreen> {
                     height: 20 * size.height / 896,
                   ),
                   Container(
-                    height: 438 * size.height / 896,
+                    height: 600 * size.height / 896,
                     width: 350 * size.width / 414,
                     decoration: BoxDecoration(
                       border: Border.all(color: fieldBorder, width: 2.5),
@@ -83,6 +89,7 @@ class _AddImageScreenState extends State<AddImageScreen> {
                     ),
                     child: GestureDetector(
                       onTap: (){
+                        userController.addImage();
                         setState(() {
                           haveImage = !haveImage;
                         });
@@ -91,11 +98,11 @@ class _AddImageScreenState extends State<AddImageScreen> {
                     ),
                   ),
                   SizedBox(height: 24 * size.height / 896),
-                  MultilineTextField(
-                    onChanged: (value) {},
-                    controller: description,
-                    hint: '',
-                  ),
+                  // MultilineTextField(
+                  //   onChanged: (value) {},
+                  //   controller: description,
+                  //   hint: '',
+                  // ),
                   SizedBox(height: 24 * size.height / 896),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,

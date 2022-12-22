@@ -1,6 +1,7 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
 import 'package:familiar_stranger_v2/controllers/conversationController.dart';
 import 'package:familiar_stranger_v2/controllers/user/userController.dart';
+import 'package:familiar_stranger_v2/services/socketio.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/chatroom_bg.dart';
 import 'package:familiar_stranger_v2/ui/screens/chat/widgets/conversation.dart';
 import 'package:familiar_stranger_v2/ui/screens/chat/widgets/message_bar.dart';
@@ -60,7 +61,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 5.0 * size.width / 414),
                 child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      print('object');
+                    },
                     child: Image.asset(
                       'assets/icons/Following.png',
                       scale: 3.5,
@@ -88,7 +91,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                               controller: messageTextController,
                               pressRecord: () {},
                               pressEmoji: () {},
-                              pressImage: () {},
+                              pressImage: () {
+                                
+                              },
                               sendMessage: () {
                                 conversationController.sendMessage(
                                     userController.currentUser.value.id,
@@ -123,9 +128,10 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     GestureDetector(
                       onTap: () {
                         final data = {
-                          "chatroom": "chatroomname",
-                          "avt": "avatar"
+                          "chatroom": userController.currentUser.value.id.toString(),
+                          "avt": conversationController.targetUser.value.listImage![0].imageUrl.toString()
                         };
+                        voiceCall(data);
                         Get.toNamed('/voice_calling', parameters: data);
                       },
                       child: Image.asset(
@@ -153,7 +159,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                       height: 20 * size.height / 896,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed('/musicScreen');
+                      },
                       child: Image.asset(
                         'assets/icons/MusicHeart-1.png',
                         scale: 4,

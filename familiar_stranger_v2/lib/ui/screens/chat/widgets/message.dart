@@ -37,13 +37,13 @@ class Message extends StatelessWidget {
                             const BorderRadius.all(Radius.circular(200.0))),
                     child: CircleAvatar(
                       backgroundImage: NetworkImage(
-                          mess.avatarURl ?? "https://i.imgur.com/n3nKtWa.jpg"),
+                          mess.avatarURL ?? "https://i.imgur.com/n3nKtWa.jpg"),
                       radius: 30.0,
                     ),
                   )
                 : Container(),
             (isYour == false)
-                ? SizedBox(
+                ? const SizedBox(
                     width: 10,
                   )
                 : Container(),
@@ -65,32 +65,10 @@ class Message extends StatelessWidget {
                       )
                     : GestureDetector(
                         onTap: () {
-                          final data = {'imageLink': mess.content!};
-                          Get.toNamed('/image', parameters: data);
+                          Get.toNamed('/image', parameters: {'imageLink': mess.content!.toString()});
                         },
                         child: Image.asset('assets/images/Vector.png',
                             scale: 10))),
-            (isYour == true)
-                ? SizedBox(
-                    width: 10,
-                  )
-                : Container(),
-            (isYour == true)
-                ? Container(
-                    height: 50 * size.height / 896,
-                    width: 50 * size.height / 896,
-                    decoration: BoxDecoration(
-                        color: secondaryText,
-                        border: Border.all(color: fieldBorder, width: 2.5),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(200.0))),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          mess.avatarURl ?? "https://i.imgur.com/n3nKtWa.jpg"),
-                      radius: 30.0,
-                    ),
-                  )
-                : Container(),
           ],
         ),
       ],

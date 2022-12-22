@@ -6,10 +6,10 @@ import 'package:image_picker/image_picker.dart';
 class UserController extends GetxController {
   late Rx<User> currentUser;
   List<Rx<User>> currentListFriend = [];
-  // late Rx<User> targetUser;
+  List<Rx<User>> currentListRecentConnect = [];
 
-  Future<void> updateProfile(username, emotion, yearOfB, description) async {
-    if (!await editProfile(username, emotion, yearOfB, description)) {
+  Future<void> updateProfile(username, emotion, yearOfB, description, gmail) async {
+    if (!await editProfile(username, emotion, yearOfB, description, gmail)) {
       return;
     }
 
@@ -25,6 +25,9 @@ class UserController extends GetxController {
       }
       if (description.isNotEmpty) {
         user!.description = description;
+      }
+      if (gmail.isNotEmpty) {
+        user!.gmail = gmail;
       }
     });
   }
@@ -53,6 +56,22 @@ class UserController extends GetxController {
       return false;
     }
   }
+
+    Future<bool> addImage() async {
+    try {
+      final ImagePicker imagePicker = ImagePicker();
+      var image = await imagePicker.pickImage(source: ImageSource.gallery);
+      if (image != null) {
+        await upImage(image.path.toString());
+        return true;
+      }
+      return false;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
+
 
   Future<bool> changePassword(oldPass, newPass) async {
     return false;

@@ -1,9 +1,11 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
+import 'package:familiar_stranger_v2/controllers/musicController.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/music_bg.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/buttons/round_button.dart';
 import 'package:familiar_stranger_v2/ui/screens/chat/music/widgets/option_music.dart';
 import 'package:familiar_stranger_v2/ui/screens/chat/music/widgets/selected_music.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MusicScreen extends StatefulWidget {
   const MusicScreen({Key? key}) : super(key: key);
@@ -13,6 +15,9 @@ class MusicScreen extends StatefulWidget {
 }
 
 class _MusicScreenState extends State<MusicScreen> {
+
+  MusicController musicController = Get.put(MusicController());
+
   String titleMusic = 'Title';
   String author = 'Author';
   bool isSelectedList = true;
@@ -99,7 +104,8 @@ class _MusicScreenState extends State<MusicScreen> {
                   ),
                   Text(
                     '$titleMusic - $author',
-                    style: const TextStyle(fontFamily: 'NewRocker', fontSize: 18),
+                    style:
+                        const TextStyle(fontFamily: 'NewRocker', fontSize: 18),
                   ),
                   SizedBox(
                     height: 15 * size.height / 896,
@@ -171,9 +177,15 @@ class _MusicScreenState extends State<MusicScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       RoundButton(
-                        borderColor: isSelectedList == true ? fieldColor : secondaryColor,
-                        backgroundColor: isSelectedList == true ? secondaryColor : fieldColor,
-                        textColor: isSelectedList == true ? secondaryText : primaryText,
+                        borderColor: isSelectedList == true
+                            ? fieldColor
+                            : secondaryColor,
+                        backgroundColor: isSelectedList == true
+                            ? secondaryColor
+                            : fieldColor,
+                        textColor: isSelectedList == true
+                            ? secondaryText
+                            : primaryText,
                         text: 'Select',
                         press: () {
                           setState(() {
@@ -185,9 +197,15 @@ class _MusicScreenState extends State<MusicScreen> {
                         width: 8 * size.width / 414,
                       ),
                       RoundButton(
-                        borderColor: isSelectedList == false ? fieldColor : secondaryColor,
-                        backgroundColor: isSelectedList == false ? secondaryColor : fieldColor,
-                        textColor: isSelectedList == false ? secondaryText : primaryText,
+                        borderColor: isSelectedList == false
+                            ? fieldColor
+                            : secondaryColor,
+                        backgroundColor: isSelectedList == false
+                            ? secondaryColor
+                            : fieldColor,
+                        textColor: isSelectedList == false
+                            ? secondaryText
+                            : primaryText,
                         text: 'All',
                         press: () {
                           setState(() {
@@ -202,20 +220,32 @@ class _MusicScreenState extends State<MusicScreen> {
                   ),
                   //Music Container
                   Container(
-                    height: 369*size.height/896,
-                    width: 318*size.width/414,
-                    padding: EdgeInsets.symmetric(horizontal: 20*size.width/414),
+                    height: 369 * size.height / 896,
+                    width: 318 * size.width / 414,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20 * size.width / 414),
                     decoration: BoxDecoration(
-                      color: secondaryText,
-                      border: Border.all(color: fieldBorder, width: 2.5),
-                      borderRadius: const BorderRadius.all(Radius.circular(15.0))
-                    ),
+                        color: secondaryText,
+                        border: Border.all(color: fieldBorder, width: 2.5),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(15.0))),
                     child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: 10,
-                      itemBuilder: (_, index){
-                        return(isSelectedList == true) ? SelectedMusic(index: index, name: 'name', press: (){}, isPlay: false) : OptionMusic(index: index, name: 'name', press: (){}, isSelected: false);
-                      }),
+                        padding: EdgeInsets.zero,
+                        itemCount: musicController.listMusic.length,
+                        itemBuilder: (_, index) {
+                          return (isSelectedList == true)
+                              ? 
+                              SelectedMusic(
+                                  index: index + 1,
+                                  name: musicController.listMusic.elementAt(index).name.toString(),
+                                  press: () {},
+                                  isPlay: false)
+                              : OptionMusic(
+                                  index: index + 1,
+                                  name: musicController.listMusic.elementAt(index).name,
+                                  press: () {},
+                                  isSelected: false);
+                        }),
                   ),
                 ],
               ),

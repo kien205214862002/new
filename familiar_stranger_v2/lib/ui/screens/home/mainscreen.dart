@@ -1,6 +1,7 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
 import 'package:familiar_stranger_v2/controllers/menu_controller.dart';
 import 'package:familiar_stranger_v2/controllers/time_counter.dart';
+import 'package:familiar_stranger_v2/controllers/user/notificationController.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/dialog/dialog_yes_no.dart';
 import 'package:familiar_stranger_v2/ui/screens/friend/list_friend/list_friend.dart';
 import 'package:familiar_stranger_v2/ui/screens/home/home.dart';
@@ -21,6 +22,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   late PageController pageController;
   int indexPage = 0;
+  final NotificationController notificationController = Get.put(NotificationController());
   final CounterController counterController = Get.put(CounterController());
   final MenuController menuController = Get.put(MenuController());
   @override

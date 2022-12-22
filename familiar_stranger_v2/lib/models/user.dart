@@ -9,9 +9,11 @@ class User {
   String? role;
   String? emotion;
   String? description;
+  String?gmail;
   String? idFake;
   List<String>? listFriendId;
   List<String>? listPendingFriend;
+  List<String>? listRecentConnect;
   List<Image>? listImage;
   String? yearOfB;
   String? sex;
@@ -26,9 +28,11 @@ class User {
       this.role,
       this.emotion,
       this.description,
+      this.gmail,
       this.idFake,
       this.listFriendId,
       this.listPendingFriend,
+      this.listRecentConnect,
       this.listImage,
       this.yearOfB,
       this.sex,
@@ -43,9 +47,11 @@ class User {
     role = json['role'];
     emotion = json['emotion'];
     description = json['description'];
+    gmail = json['gmail'];
     idFake = json['id_fake'];
     listFriendId = json['listFriendId']?.cast<String>();
     listPendingFriend = json['listPendingFriend']?.cast<String>();
+    listRecentConnect = json['listRecentConnect']?.cast<String>();
     if (json['listImage'] != null) {
       listImage = <Image>[];
       json['listImage'].forEach((v) {
@@ -56,7 +62,7 @@ class User {
     sex = json['sex'];
     if(json['settingId'] != null){
       settingId = Setting.fromJson(json['settingId']);
-    }  
+    }
     token = json['token'];
   }
 
@@ -69,9 +75,11 @@ class User {
     data['role'] = role;
     data['emotion'] = emotion;
     data['description'] = description;
+    data['gmail'] = gmail;
     data['id_fake'] = idFake;
     data['listFriendId'] = listFriendId;
     data['listPendingFriend'] = listPendingFriend;
+    data['listRecentConnect'] = listRecentConnect;
     if (listImage != null) {
       data['listImage'] = listImage!.map((v) => v.toJson()).toList();
     }    data['yearOfB'] = yearOfB;

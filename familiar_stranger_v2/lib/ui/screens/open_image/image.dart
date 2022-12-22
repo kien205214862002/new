@@ -25,7 +25,7 @@ class _ImageScreenState extends State<ImageScreen> {
         backgroundColor: Colors.black,
         elevation: 0,
         leading: Padding(
-          padding: EdgeInsets.only(top: 17, left: 10),
+          padding: const EdgeInsets.only(top: 17, left: 10),
           child: GestureDetector(
               onTap: () {
                 Navigator.of(context).pop();

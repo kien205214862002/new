@@ -27,8 +27,8 @@ class _VoiceCallingScreenState extends State<VoiceCallingScreen> {
   void initState() {
     super.initState();
     voiceCallFunction.setupVoiceSDKEngine();
-    voiceCallFunction.setInformation("trungggg_qwer");
-    // voiceCallFunction.setInformation(Get.parameters["chatroom"]!);
+    //voiceCallFunction.setInformation("trungggg_qwer");
+    voiceCallFunction.setInformation(Get.parameters["chatroom"]!);
   }
 
   void pressMute() {

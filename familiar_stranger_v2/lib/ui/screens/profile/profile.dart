@@ -173,29 +173,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ? Stack(children: [
                                     Positioned.fill(
                                         child: ImageShow(
-                                      list: const ["1", "2"],
+                                      list: userController.currentUser.value.listImage!,
                                       onChanged: (value) {
+                                        //print('object');
                                         //get the current image position in list
                                       },
                                     )),
-                                    Positioned.fill(
-                                        child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Container(
-                                          alignment: Alignment.center,
-                                          height: 123 * size.height / 896,
-                                          width: size.width * 0.891,
-                                          color: fieldBorder.withOpacity(0.4),
-                                          child: const Text(
-                                            'Data',
-                                            style: TextStyle(
-                                                color: secondaryText,
-                                                fontSize: 18),
-                                          ),
-                                        )
-                                      ],
-                                    )),
+                                    // Positioned.fill(
+                                    //     child: Column(
+                                    //   mainAxisAlignment: MainAxisAlignment.end,
+                                    //   children: [
+                                    //     Container(
+                                    //       alignment: Alignment.center,
+                                    //       height: 123 * size.height / 896,
+                                    //       width: size.width * 0.891,
+                                    //       color: fieldBorder.withOpacity(0.4),
+                                    //       child: const Text(
+                                    //         'Data',
+                                    //         style: TextStyle(
+                                    //             color: secondaryText,
+                                    //             fontSize: 18),
+                                    //       ),
+                                    //     )
+                                    //   ],
+                                    // )),
                                   ])
                                 : IntroContainer(
                                     name: userController
@@ -208,8 +209,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 .currentUser.value.sex
                                                 .toString() ==
                                             'male'
-                                        ? 'assets/icons/Call.png'
-                                        : 'assets/icons/Call-1.png',
+                                        ? 'assets/icons/Male.png'
+                                        : 'assets/icons/Female.png',
                                     description: userController
                                         .currentUser.value.description
                                         .toString(),
@@ -240,7 +241,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 10 * size.height / 896,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Get.toNamed('/addImageScreen');
+                    },
                     child: Image.asset(
                       'assets/icons/Add.png',
                       scale: 4,

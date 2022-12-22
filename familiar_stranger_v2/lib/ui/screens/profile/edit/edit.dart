@@ -23,10 +23,9 @@ class _EditScreenState extends State<EditScreen> {
   final fullnameController = TextEditingController();
   final yearController = TextEditingController();
   final descriptionController = TextEditingController();
-  final statusController = TextEditingController();
+  final emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-
     var tempUser = userController.currentUser.value;
 
     Size size = MediaQuery.of(context).size;
@@ -59,11 +58,11 @@ class _EditScreenState extends State<EditScreen> {
                   right: 5.0 * size.width / 414, top: 5.0 * size.height / 896),
               child: GestureDetector(
                   onTap: () async {
-                    
-                    if(usernameController.text.trim().isEmpty 
-                    && emotionController.text.trim().isEmpty 
-                    && yearController.text.trim().isEmpty 
-                    && descriptionController.text.trim().isEmpty){
+                    if (usernameController.text.trim().isEmpty &&
+                        emotionController.text.trim().isEmpty &&
+                        yearController.text.trim().isEmpty &&
+                        descriptionController.text.trim().isEmpty &&
+                        emailController.text.trim().isEmpty) {
                       return;
                     }
 
@@ -71,8 +70,9 @@ class _EditScreenState extends State<EditScreen> {
                         usernameController.text.trim(),
                         emotionController.text.trim(),
                         yearController.text.trim(),
-                        descriptionController.text.trim());
-                    Get.back();    
+                        descriptionController.text.trim(),
+                        emailController.text.trim());
+                    Get.back();
                   },
                   child: Image.asset(
                     'assets/icons/Save.png',
@@ -92,9 +92,13 @@ class _EditScreenState extends State<EditScreen> {
                   SizedBox(
                     height: 20 * size.height / 896,
                   ),
-                  OneLineTextField(controller: usernameController, hint: tempUser.username.toString()),
+                  OneLineTextField(
+                      controller: usernameController,
+                      hint: tempUser.username.toString()),
                   SizedBox(height: 24 * size.height / 896),
-                  OneLineTextField(controller: emotionController, hint: tempUser.emotion.toString()),
+                  OneLineTextField(
+                      controller: emotionController,
+                      hint: tempUser.emotion.toString()),
                   SizedBox(height: 24 * size.height / 896),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -109,7 +113,9 @@ class _EditScreenState extends State<EditScreen> {
                       SizedBox(
                         width: 24 * size.width / 414,
                       ),
-                      YearTextField(controller: yearController, hint: tempUser.yearOfB.toString()),
+                      YearTextField(
+                          controller: yearController,
+                          hint: tempUser.yearOfB.toString()),
                       SizedBox(
                         width: 24 * size.width / 414,
                       ),
@@ -129,7 +135,11 @@ class _EditScreenState extends State<EditScreen> {
                     hint: tempUser.description.toString(),
                   ),
                   SizedBox(height: 24 * size.height / 896),
-                  OneLineTextField(controller: statusController, hint: 'Status'),
+                  OneLineTextField(
+                      controller: emailController,
+                      hint: (tempUser.gmail.toString() == 'null')
+                          ? 'Gmail'
+                          : tempUser.gmail.toString()),
                   SizedBox(height: 50 * size.height / 896),
                   const Text(
                     'Images:',

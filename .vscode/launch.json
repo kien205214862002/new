@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "familiar_stranger_v2",
+            "cwd": "familiar_stranger_v2",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "familiar_stranger_v2 (profile mode)",
+            "cwd": "familiar_stranger_v2",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "familiar_stranger_v2 (release mode)",
+            "cwd": "familiar_stranger_v2",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

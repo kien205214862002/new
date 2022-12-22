@@ -1,23 +1,28 @@
 import 'dart:convert';
 import 'package:familiar_stranger_v2/controllers/conversationController.dart';
+import 'package:familiar_stranger_v2/controllers/musicController.dart';
 import 'package:familiar_stranger_v2/controllers/setting/setting_controller.dart';
+import 'package:familiar_stranger_v2/controllers/user/notificationController.dart';
 import 'package:familiar_stranger_v2/controllers/user/userController.dart';
 import 'package:familiar_stranger_v2/models/user.dart';
 import 'package:familiar_stranger_v2/models/image.dart' as img;
+import 'package:familiar_stranger_v2/models/song.dart';
+import 'package:familiar_stranger_v2/services/socketio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
-var ip = '192.168.205.20';
+var ip = '172.16.0.136';
 
 final userData = GetStorage();
 //var token = userData.read('token');
 
 UserController userController = Get.put(UserController());
 SettingController settingController = Get.put(SettingController());
-ConversationController conversationController =
-    Get.put(ConversationController());
+MusicController musicController = Get.put(MusicController());
+ConversationController conversationController = Get.put(ConversationController());
+NotificationController notificationController = Get.put(NotificationController());
 
 Future<bool> submitLogin(phoneNumber, password) async {
   try {
@@ -33,6 +38,9 @@ Future<bool> submitLogin(phoneNumber, password) async {
       settingController
           .initSetting(userController.currentUser.value.settingId!);
 
+      notificationController.loadInitNotification();
+      musicController.loadInitMusic();
+
       debugPrint('Login successful');
       return true;
     }
@@ -46,6 +54,7 @@ Future<bool> submitLogin(phoneNumber, password) async {
 Future<bool> getListFriend() async {
   var token = userData.read('token');
   userController.currentListFriend = [];
+  userController.currentListRecentConnect = [];
   try {
     var response = await http.get(Uri.http('$ip:3000', '/user/friend'),
         headers: ({"authorization": token}));
@@ -54,11 +63,33 @@ Future<bool> getListFriend() async {
       jsonData['listFriendData'].forEach((v) {
         userController.currentListFriend.add(User.fromJson(v).obs);
       });
+      jsonData['listRecentConnect'].forEach((v) {
+        userController.currentListRecentConnect.add(User.fromJson(v).obs);
+      });
     }
   } catch (e) {
     debugPrint('err get list friend $e');
   }
   return true;
+}
+
+Future<bool> addRecentConnect(id) async {
+  var token = userData.read('token');
+  try {
+    var response = await http.post(
+        Uri.http('$ip:3000', '/user/addrecentconnect'),
+        body: ({"id": id}),
+        headers: ({"authorization": token}));
+    var jsonData = jsonDecode(response.body);
+    if (jsonData['success'] == true) {
+      userController.currentUser.value.listRecentConnect!.add(id);
+      return true;
+    }
+    return false;
+  } on Exception catch (e) {
+    debugPrint(e.toString());
+    return false;
+  }
 }
 
 Future<bool> checkUserExits(phoneNumber) async {
@@ -120,6 +151,9 @@ Future<bool> getUserByToken() async {
       settingController
           .initSetting(userController.currentUser.value.settingId!);
 
+      notificationController.loadInitNotification();
+      musicController.loadInitMusic();
+
       return true;
     }
     return false;
@@ -170,7 +204,7 @@ Future<bool> changeStatus(status) async {
   }
 }
 
-Future<bool> editProfile(username, emotion, yearOfB, description) async {
+Future<bool> editProfile(username, emotion, yearOfB, description, gmail) async {
   var token = userController.currentUser.value.token.toString();
   try {
     var response = await http.patch(Uri.http('$ip:3000', '/user'),
@@ -178,7 +212,8 @@ Future<bool> editProfile(username, emotion, yearOfB, description) async {
           "username": username,
           "emotion": emotion,
           "yearOfB": yearOfB,
-          "description": description
+          "description": description,
+          "gmail": gmail
         }),
         headers: ({"authorization": token}));
     var jsonData = jsonDecode(response.body);
@@ -217,6 +252,33 @@ Future<bool> uploadAvatar(path) async {
   }
 }
 
+Future<bool> upImage(path) async {
+  var token = userController.currentUser.value.token.toString();
+  try {
+    var request =
+        http.MultipartRequest('POST', Uri.http('$ip:3000', '/user/addImage'));
+    request.files.add(await http.MultipartFile.fromPath('image', path));
+    request.headers.addAll(
+        {'Content-type': 'multipart/form-data', 'authorization': token});
+    var response = await request.send();
+    final resStr = await response.stream.bytesToString();
+    var jsonData = jsonDecode(resStr);
+    if (jsonData['success']) {
+      Future.delayed(const Duration(seconds: 3), () async {
+        print(userController.currentUser.value.listImage!.length.toString());
+      });
+      userController.currentUser.value
+              .listImage![userController.currentUser.value.listImage!.length] =
+          img.Image.fromJson(jsonData['image']);
+      return true;
+    }
+    return false;
+  } on Exception catch (e) {
+    debugPrint(e.toString());
+    return false;
+  }
+}
+
 Future<bool> submitResetPassword(phoneNumber, newPassword) async {
   try {
     var response = await http.post(Uri.http('$ip:3000', '/user/resetPassword'),
@@ -224,6 +286,65 @@ Future<bool> submitResetPassword(phoneNumber, newPassword) async {
     var jsonData = jsonDecode(response.body);
     return jsonData['success'];
   } on Exception catch (e) {
+    debugPrint(e.toString());
+    return false;
+  }
+}
+
+Future<bool> addNotificationToData(senderId, targetId, type, content) async {
+  try {
+    var response = await http.post(Uri.http('$ip:3000', '/notification'),
+    body: ({
+      "senderId": senderId,
+      "targetId": targetId,
+      "type": type,
+      "content": content,
+      "read": "false"
+    }));
+    var jsonData = jsonDecode(response.body);
+
+    return jsonData['success'];
+  } catch (e) {
+    print('object');
+    debugPrint(e.toString());
+    return false;
+  }
+}
+
+Future<bool> getNotification() async {
+  var token = userController.currentUser.value.token.toString();
+  try {
+    var response = await http.get(Uri.http('$ip:3000', '/notification'),
+    headers: ({"authorization": token}));
+    var jsonData = jsonDecode(response.body);
+    
+    if (jsonData['success'] == true) {
+      jsonData['listNotification'].forEach((v) {
+        notificationController.addNotification(v);
+      });
+    }
+
+    return jsonData['success'];
+  } catch (e) {
+    print('object');
+    debugPrint(e.toString());
+    return false;
+  }
+}
+
+Future<bool> getAllSong() async {
+  try {
+    var response = await http.get(Uri.http('$ip:3000', '/music'));
+    var jsonData = jsonDecode(response.body);
+    
+    if (jsonData['success'] == true) {
+      jsonData['data'].forEach((v) {
+        musicController.listMusic.add(Song.fromJson(v));
+      });
+    }
+
+    return jsonData['success'];
+  } catch (e) {
     debugPrint(e.toString());
     return false;
   }

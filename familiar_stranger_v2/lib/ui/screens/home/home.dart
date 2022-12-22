@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const NotificationScreen()),
+                        builder: (context) => NotificationScreen()),
                   );
                 },
                 child: Image.asset(
