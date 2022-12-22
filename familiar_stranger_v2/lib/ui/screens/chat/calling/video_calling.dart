@@ -2,6 +2,7 @@ import 'package:familiar_stranger_v2/config/utils/export_file.dart';
 import 'package:familiar_stranger_v2/services/calling_service.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/buttons/round_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 
@@ -24,7 +25,7 @@ class _VideoCallingScreenState extends State<VideoCallingScreen> {
   @override
   void initState() {
     setupVideoSDKEngine();
-    videoCallFunction.setInformation(channel);
+    videoCallFunction.setInformation(Get.parameters["chatroom"]!);
     // videoCallFunction.setInformation(Get.parameters["chatroom"]!);
     // setState(() {
     //   _isJoined == true;
@@ -359,7 +360,7 @@ class _VideoCallingScreenState extends State<VideoCallingScreen> {
       return AgoraVideoView(
         controller: VideoViewController(
           rtcEngine: agoraEngine,
-          canvas: VideoCanvas(uid: userID, view: 1),
+          canvas: const VideoCanvas(uid: 0),
         ),
       );
     } else {

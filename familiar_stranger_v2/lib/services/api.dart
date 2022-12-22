@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
-var ip = '172.16.0.136';
+var ip = '192.168.137.1';
 
 final userData = GetStorage();
 //var token = userData.read('token');
@@ -21,8 +21,10 @@ final userData = GetStorage();
 UserController userController = Get.put(UserController());
 SettingController settingController = Get.put(SettingController());
 MusicController musicController = Get.put(MusicController());
-ConversationController conversationController = Get.put(ConversationController());
-NotificationController notificationController = Get.put(NotificationController());
+ConversationController conversationController =
+    Get.put(ConversationController());
+NotificationController notificationController =
+    Get.put(NotificationController());
 
 Future<bool> submitLogin(phoneNumber, password) async {
   try {
@@ -294,13 +296,13 @@ Future<bool> submitResetPassword(phoneNumber, newPassword) async {
 Future<bool> addNotificationToData(senderId, targetId, type, content) async {
   try {
     var response = await http.post(Uri.http('$ip:3000', '/notification'),
-    body: ({
-      "senderId": senderId,
-      "targetId": targetId,
-      "type": type,
-      "content": content,
-      "read": "false"
-    }));
+        body: ({
+          "senderId": senderId,
+          "targetId": targetId,
+          "type": type,
+          "content": content,
+          "read": "false"
+        }));
     var jsonData = jsonDecode(response.body);
 
     return jsonData['success'];
@@ -315,9 +317,9 @@ Future<bool> getNotification() async {
   var token = userController.currentUser.value.token.toString();
   try {
     var response = await http.get(Uri.http('$ip:3000', '/notification'),
-    headers: ({"authorization": token}));
+        headers: ({"authorization": token}));
     var jsonData = jsonDecode(response.body);
-    
+
     if (jsonData['success'] == true) {
       jsonData['listNotification'].forEach((v) {
         notificationController.addNotification(v);
@@ -336,7 +338,7 @@ Future<bool> getAllSong() async {
   try {
     var response = await http.get(Uri.http('$ip:3000', '/music'));
     var jsonData = jsonDecode(response.body);
-    
+
     if (jsonData['success'] == true) {
       jsonData['data'].forEach((v) {
         musicController.listMusic.add(Song.fromJson(v));

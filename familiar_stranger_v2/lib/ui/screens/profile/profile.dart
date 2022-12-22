@@ -56,7 +56,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             actions: [
               GestureDetector(
                   onTap: () {
-                    Get.toNamed('/editProfileScreen');
+                    // Get.toNamed('/editProfileScreen');
+
+                    final data = {"chatroom": "qwert123", "avt": "123"};
+                    Get.toNamed('/video_calling', parameters: data);
                   },
                   child: Image.asset(
                     'assets/icons/Edit Mailbox.png',
@@ -173,7 +176,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ? Stack(children: [
                                     Positioned.fill(
                                         child: ImageShow(
-                                      list: userController.currentUser.value.listImage!,
+                                      list: userController
+                                          .currentUser.value.listImage!,
                                       onChanged: (value) {
                                         //print('object');
                                         //get the current image position in list

@@ -6,11 +6,13 @@ import 'package:get/get.dart';
 import 'package:socket_io_client/socket_io_client.dart' as socketIO;
 
 late socketIO.Socket socket;
-ConversationController conversationController = Get.put(ConversationController());
-NotificationController notificationController = Get.put(NotificationController());
+ConversationController conversationController =
+    Get.put(ConversationController());
+NotificationController notificationController =
+    Get.put(NotificationController());
 
 void connectSocket() {
-  socket = socketIO.io('http://172.16.0.136:3000', <String, dynamic>{
+  socket = socketIO.io('http://192.168.137.1:3000', <String, dynamic>{
     'transports': ['websocket'],
     'autoConnect': false,
   });
@@ -18,32 +20,41 @@ void connectSocket() {
   socket.on('connect', (data) {
     print('Connected');
 
-    socket.on('to-conversation', (data) => {conversationController.toConversation(data)});
+    socket.on('to-conversation',
+        (data) => {conversationController.toConversation(data)});
 
     socket.on('disconnect-conversation', (data) => {Get.back()});
 
-    socket.on('message', (data) => {
-      print(data),
-      conversationController.updateListMessage(data)
-    });
+    socket.on(
+        'message',
+        (data) =>
+            {print(data), conversationController.updateListMessage(data)});
 
-    socket.on('sendInvite', (data) => {
-      print(data),
-      addNotificationToData(data['senderId'], userController.currentUser.value.id, "InviteToRoom", data['content']),
-      notificationController.addNotification(data)
+    socket.on(
+        'sendInvite',
+        (data) => {
+              print(data),
+              addNotificationToData(
+                  data['senderId'],
+                  userController.currentUser.value.id,
+                  "InviteToRoom",
+                  data['content']),
+              notificationController.addNotification(data)
+            });
 
-    });
-
-    socket.on('voiceCall', (data) => {
-      print(data),
-      Get.dialog(DialogCalling(title: 'Voice Call', 
-      accept: (){
-        Get.toNamed('/voice_calling', parameters: data);
-      }, reject: (){
-        Get.back();
-      }))
-      
-    });
+    socket.on(
+        'voiceCall',
+        (data) => {
+              print(data),
+              Get.dialog(DialogCalling(
+                  title: 'Voice Call',
+                  accept: () {
+                    Get.toNamed('/voice_calling', parameters: data);
+                  },
+                  reject: () {
+                    Get.back();
+                  }))
+            });
   });
 }
 
@@ -82,14 +93,14 @@ void message(data) {
   socket.emit('message', data);
 }
 
-void SendInvite(data){
-  socket.emit('sendInvite',data);
+void SendInvite(data) {
+  socket.emit('sendInvite', data);
 }
 
-void acceptInvite(targerId){
+void acceptInvite(targerId) {
   socket.emit('acceptInvite', targerId);
 }
 
-void voiceCall(data){
-  socket.emit('voiceCall',data);
+void voiceCall(data) {
+  socket.emit('voiceCall', data);
 }

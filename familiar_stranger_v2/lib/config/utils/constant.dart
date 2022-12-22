@@ -9,7 +9,7 @@ String channel = "trungggg_qwerr";
 //AppCertificate
 const appcertificate = "a26885dbbcda4b7297f66f16de59eae0";
 //userID -> Random
-int userID = 2;
+int userID = 0;
 //Token ROle
 int tokenRole = 1; // use 1 for Host/Broadcaster, 2 for Subscriber/Audience
 //ServerURL

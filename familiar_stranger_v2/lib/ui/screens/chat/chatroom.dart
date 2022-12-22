@@ -91,9 +91,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                               controller: messageTextController,
                               pressRecord: () {},
                               pressEmoji: () {},
-                              pressImage: () {
-                                
-                              },
+                              pressImage: () {},
                               sendMessage: () {
                                 conversationController.sendMessage(
                                     userController.currentUser.value.id,
@@ -128,8 +126,11 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     GestureDetector(
                       onTap: () {
                         final data = {
-                          "chatroom": userController.currentUser.value.id.toString(),
-                          "avt": conversationController.targetUser.value.listImage![0].imageUrl.toString()
+                          "chatroom":
+                              userController.currentUser.value.id.toString(),
+                          "avt": conversationController
+                              .targetUser.value.listImage![0].imageUrl
+                              .toString()
                         };
                         voiceCall(data);
                         Get.toNamed('/voice_calling', parameters: data);
@@ -145,9 +146,14 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     GestureDetector(
                       onTap: () {
                         final data = {
-                          "chatroom": "chatroomname",
-                          "avt": "avatar"
+                          "chatroom":
+                              userController.currentUser.value.id.toString(),
+                          "avt": conversationController
+                              .targetUser.value.listImage![0].imageUrl
+                              .toString()
                         };
+                        voiceCall(data);
+                        //videoCall riêng
                         Get.toNamed('/video_calling', parameters: data);
                       },
                       child: Image.asset(
