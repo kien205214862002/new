@@ -140,7 +140,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     GestureDetector(
                       onTap: () {
                         final data = {
-                          "chatroom": userController.currentUser.value.id.toString(),
+                          "chatroom": "${userController.currentUser.value.id.toString()}_voice",
                           "avt": conversationController.targetUser.value.listImage![0].imageUrl.toString(),
                           "type":"voice"
                         };
@@ -158,7 +158,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     GestureDetector(
                       onTap: () {
                         final data = {
-                          "chatroom": userController.currentUser.value.id.toString(),
+                          "chatroom": "${userController.currentUser.value.id.toString()}_video",
                           "avt": conversationController.targetUser.value.listImage![0].imageUrl.toString(),
                           "type":"video"
                         };
