@@ -16,7 +16,6 @@ class MusicScreen extends StatefulWidget {
 }
 
 class _MusicScreenState extends State<MusicScreen> {
-
   var audioPlayer = AudioPlayer(); // playing
   Duration start = Duration.zero; // duration when start
   Duration end = Duration.zero; // duration of the song
@@ -42,13 +41,13 @@ class _MusicScreenState extends State<MusicScreen> {
     }
   }
 
-
-  MusicController musicController = Get.put(MusicController());
+  final MusicController musicController = Get.put(MusicController());
 
   String titleMusic = 'Title';
   String author = 'Author';
   bool isSelectedList = true;
   bool isAllList = false;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -142,6 +141,7 @@ class _MusicScreenState extends State<MusicScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
+                        //loop
                         SizedBox(
                           child: GestureDetector(
                             onTap: () {},
@@ -151,6 +151,7 @@ class _MusicScreenState extends State<MusicScreen> {
                             ),
                           ),
                         ),
+                        //back
                         SizedBox(
                           child: GestureDetector(
                             onTap: () {},
@@ -160,26 +161,58 @@ class _MusicScreenState extends State<MusicScreen> {
                             ),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: ()async {
-                            await audioPlayer.pause();
-                            var url = 'https://sendeyo.com/updownload/file/script/0ae2c13a28775c3969132b703949df00.mp3';
-                            //await audioPlayer.play(url, volume: 80);
-                          },
-                          child: Container(
-                            height: 80 * size.height / 896,
-                            width: 80 * size.height / 896,
-                            decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(200)),
-                              color: secondaryColor,
-                            ),
-                            child: Image.asset(
-                              'assets/icons/Play.png',
-                              scale: 3,
-                            ),
-                          ),
-                        ),
+                        //play
+                        Obx(() {
+                          if (musicController.isPlaying == false) {
+                            return GestureDetector(
+                              onTap: () async {
+                                // await audioPlayer.pause();
+                                var url =
+                                    'https://sendeyo.com/updownload/file/script/0ae2c13a28775c3969132b703949df00.mp3';
+                                await audioPlayer.play(url, volume: 80);
+                                musicController.PlayMusic();
+                              },
+                              child: Container(
+                                height: 80 * size.height / 896,
+                                width: 80 * size.height / 896,
+                                decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(200)),
+                                  color: secondaryColor,
+                                ),
+                                child: Image.asset(
+                                  'assets/icons/Play.png',
+                                  scale: 3,
+                                ),
+                              ),
+                            );
+                          } else {
+                            //play == true
+                            return GestureDetector(
+                              onTap: () async {
+                                await audioPlayer.pause();
+                                musicController.PauseMusic();
+                                var url =
+                                    'https://sendeyo.com/updownload/file/script/0ae2c13a28775c3969132b703949df00.mp3';
+                                //await audioPlayer.play(url, volume: 80);
+                              },
+                              child: Container(
+                                height: 80 * size.height / 896,
+                                width: 80 * size.height / 896,
+                                decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(200)),
+                                  color: secondaryColor,
+                                ),
+                                child: Image.asset(
+                                  'assets/icons/Pause.png',
+                                  scale: 3,
+                                ),
+                              ),
+                            );
+                          }
+                        }),
+                        //next
                         SizedBox(
                           child: GestureDetector(
                             onTap: () {},
@@ -189,6 +222,7 @@ class _MusicScreenState extends State<MusicScreen> {
                             ),
                           ),
                         ),
+                        //random
                         SizedBox(
                           child: GestureDetector(
                             onTap: () {},
@@ -271,7 +305,11 @@ class _MusicScreenState extends State<MusicScreen> {
                                       .elementAt(index)
                                       .title,
                                   press: () async {
-                                    titleMusic = musicController.listMusicSelected.elementAt(index).title.toString();
+                                    titleMusic = musicController
+                                        .listMusicSelected
+                                        .elementAt(index)
+                                        .title
+                                        .toString();
                                     press_play();
                                   },
                                   isPlay: false);
@@ -286,11 +324,22 @@ class _MusicScreenState extends State<MusicScreen> {
                                       .elementAt(index)
                                       .title,
                                   press: () {
-                                    print(musicController.listMusic.elementAt(index).title);
-                                    musicController.selectSong(musicController.listMusic.elementAt(index));
-                                    musicController.listMusic.elementAt(index).select = !musicController.listMusic.elementAt(index).select;
+                                    print(musicController.listMusic
+                                        .elementAt(index)
+                                        .title);
+                                    musicController.selectSong(musicController
+                                        .listMusic
+                                        .elementAt(index));
+                                    musicController.listMusic
+                                            .elementAt(index)
+                                            .select =
+                                        !musicController.listMusic
+                                            .elementAt(index)
+                                            .select;
                                   },
-                                  isSelected: musicController.listMusic.elementAt(index).select);
+                                  isSelected: musicController.listMusic
+                                      .elementAt(index)
+                                      .select);
                             }),
                   ),
                 ],

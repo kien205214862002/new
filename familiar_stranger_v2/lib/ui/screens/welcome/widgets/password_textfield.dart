@@ -6,7 +6,11 @@ class PasswordField extends StatelessWidget {
   TextEditingController controller;
   VoidCallback press;
   String hint;
-  PasswordField({Key? key, required this.controller, required this.hint, required this.press})
+  PasswordField(
+      {Key? key,
+      required this.controller,
+      required this.hint,
+      required this.press})
       : super(key: key);
 
   @override
@@ -25,6 +29,7 @@ class PasswordField extends StatelessWidget {
             width: 2,
           )),
       child: TextField(
+        obscureText: true,
         textAlign: TextAlign.center,
         maxLines: 1,
         controller: controller,

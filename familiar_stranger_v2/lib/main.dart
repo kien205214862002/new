@@ -51,18 +51,22 @@ class MyApp extends StatelessWidget {
         GetPage(name: "/loginScreen", page: () => const LoginScreen()),
         GetPage(name: "/forgotScreen", page: () => const ForgotScreen()),
         GetPage(name: "/signUpScreen", page: () => const SignUpScreen()),
-        GetPage(name: "/waitingScreen", page: () => const WaitingBeforeLoginScreen()),
-        GetPage(name: "/beforeLoginScreen", page: () => const BeforeLoginScreen()),
+        GetPage(
+            name: "/waitingScreen",
+            page: () => const WaitingBeforeLoginScreen()),
+        GetPage(
+            name: "/beforeLoginScreen", page: () => const BeforeLoginScreen()),
         GetPage(name: "/editProfileScreen", page: () => const EditScreen()),
         GetPage(name: "/verifyScreen", page: () => const VerifyScreen()),
-        GetPage(name: "/resetPasswordScreen", page: () => const ResetPasswordScreen()),
+        GetPage(
+            name: "/resetPasswordScreen",
+            page: () => const ResetPasswordScreen()),
         GetPage(name: "/image", page: () => const ImageScreen()),
         GetPage(name: "/addImageScreen", page: () => const AddImageScreen()),
         GetPage(name: "/voice_calling", page: () => const VoiceCallingScreen()),
         GetPage(name: "/video_calling", page: () => const VideoCallingScreen()),
         GetPage(name: "/musicScreen", page: () => const MusicScreen()),
         GetPage(name: "/reportScreen", page: () => const ReportScreen()),
-        
       ],
     );
   }
