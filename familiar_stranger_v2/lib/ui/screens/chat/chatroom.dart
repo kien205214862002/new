@@ -69,7 +69,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 padding: EdgeInsets.only(right: 5.0 * size.width / 414),
                 child: GestureDetector(
                     onTap: () {
-                      if(!userController.currentListFriend.contains(conversationController.targetUser)){
+                      if(!userController.currentListFriend.any((element) => element.value.id == conversationController.targetUser.value.id)){
                         notificationController.sendInviteToAddFriend(conversationController.targetUser.value.id);
                         showSnackbar('Send invite to add friend', 'Send invite to add friend successful', Icons.check);
                       } else {

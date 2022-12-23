@@ -277,22 +277,23 @@ class _ListFriendScreenState extends State<ListFriendScreen> {
                                         .imageUrl
                                         .toString(),
                                     onPressedAdd: () {
-                                      // if ((userController.currentListFriend.singleWhere((it) => it.value.id == '',orElse: ()=>Rx<User>(new User()))) == null) {
-                                      //   notificationController
-                                      //       .sendInviteToAddFriend(
-                                      //           listRecentConnect[index]
-                                      //               .value
-                                      //               .id);
-                                      //   showSnackbar(
-                                      //       'Send invite to add friend',
-                                      //       'Send invite to add friend successful',
-                                      //       Icons.check);
-                                      // } else {
-                                      //   showSnackbar(
-                                      //       'Send invite to add friend',
-                                      //       'We are friend together',
-                                      //       Icons.check);
-                                      // }
+                                      if (!userController.currentListFriend.any((element) => element.value.id == listRecentConnect[index].value.id)) 
+                                      {
+                                        notificationController
+                                            .sendInviteToAddFriend(
+                                                listRecentConnect[index]
+                                                    .value
+                                                    .id);
+                                        showSnackbar(
+                                            'Send invite to add friend',
+                                            'Send invite to add friend successful',
+                                            Icons.check);
+                                      } else {
+                                        showSnackbar(
+                                            'Send invite to add friend',
+                                            'We are friend together',
+                                            Icons.check);
+                                      }
                                     },
                                     onPressed: () {
                                       Get.to(() => FriendProfileScreen(

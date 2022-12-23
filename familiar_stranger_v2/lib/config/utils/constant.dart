@@ -18,6 +18,6 @@ String serverUrl = "chewnodejstokengenerator-production.up.railway.app";
 //     "localhost:8080"; // The base URL to your token server, for example "https://agora-token-service-production-92ff.up.railway.app" => use for NodeJS
 
 //Token ExpiringTIme
-int tokenExpireTime = 86400; // Expire time in Seconds.
+int tokenExpireTime = 100; // Expire time in Seconds.
 //Is Token expiring for renew
 bool isTokenExpiring = false; // Set to true when the token is about to expire

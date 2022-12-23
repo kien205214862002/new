@@ -3,6 +3,7 @@ class Song {
   String? title;
   String? musicUrl;
   bool? select;
+  bool? isPlay;
 
   Song({this.id, this.title, this.musicUrl, this.select});
 
@@ -11,6 +12,7 @@ class Song {
     title = json['title'];
     musicUrl = json['musicUrl'];
     select = false;
+    isPlay = false;
   }
 
   Map<String, dynamic> toJson() {
@@ -18,7 +20,6 @@ class Song {
     data['id'] = id;
     data['title'] = title;
     data['musicUrl'] = musicUrl;
-    data['select'] = select;
     return data;
   }
 }

@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
 import 'package:familiar_stranger_v2/controllers/musicController.dart';
+import 'package:familiar_stranger_v2/services/socketio.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/music_bg.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/buttons/round_button.dart';
 import 'package:familiar_stranger_v2/ui/screens/chat/music/widgets/option_music.dart';
@@ -16,31 +17,6 @@ class MusicScreen extends StatefulWidget {
 }
 
 class _MusicScreenState extends State<MusicScreen> {
-  var audioPlayer = AudioPlayer(); // playing
-  Duration start = Duration.zero; // duration when start
-  Duration end = Duration.zero; // duration of the song
-  var isPlaying = false;
-
-  void press_play() {
-    setState(() {
-      isPlaying = !isPlaying;
-    });
-  }
-
-  void isPlay() {
-    if (isPlaying == true) {
-    } else {
-      press_play();
-    }
-  }
-
-  void isPause() {
-    if (isPlaying == false) {
-    } else {
-      press_play();
-    }
-  }
-
   final MusicController musicController = Get.put(MusicController());
 
   String titleMusic = 'Title';
@@ -50,6 +26,8 @@ class _MusicScreenState extends State<MusicScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
+    var choosedSong = musicController.listMusic.elementAt(0);
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -166,11 +144,9 @@ class _MusicScreenState extends State<MusicScreen> {
                           if (musicController.isPlaying == false) {
                             return GestureDetector(
                               onTap: () async {
-                                // await audioPlayer.pause();
-                                var url =
-                                    'https://sendeyo.com/updownload/file/script/0ae2c13a28775c3969132b703949df00.mp3';
-                                await audioPlayer.play(url, volume: 80);
-                                musicController.PlayMusic();
+                                play(choosedSong);
+                                musicController.playMusic(choosedSong);
+                                setState(() {});
                               },
                               child: Container(
                                 height: 80 * size.height / 896,
@@ -190,11 +166,9 @@ class _MusicScreenState extends State<MusicScreen> {
                             //play == true
                             return GestureDetector(
                               onTap: () async {
-                                await audioPlayer.pause();
-                                musicController.PauseMusic();
-                                var url =
-                                    'https://sendeyo.com/updownload/file/script/0ae2c13a28775c3969132b703949df00.mp3';
-                                //await audioPlayer.play(url, volume: 80);
+                                pause();
+                                musicController.pauseMusic();
+                                setState(() {});
                               },
                               child: Container(
                                 height: 80 * size.height / 896,
@@ -305,14 +279,14 @@ class _MusicScreenState extends State<MusicScreen> {
                                       .elementAt(index)
                                       .title,
                                   press: () async {
-                                    titleMusic = musicController
-                                        .listMusicSelected
-                                        .elementAt(index)
-                                        .title
-                                        .toString();
-                                    press_play();
+                                    choosedSong = musicController.listMusicSelected.elementAt(index);
+                                    musicController.chooseSongToPlay(musicController.listMusicSelected.elementAt(index));
+                                    chooseSong(musicController.listMusicSelected.elementAt(index));
+                                    setState(() {
+                                      titleMusic = choosedSong.title;
+                                    });
                                   },
-                                  isPlay: false);
+                                  isPlay: musicController.listMusicSelected.elementAt(index).isPlay);
                             }))
                         : ListView.builder(
                             padding: EdgeInsets.zero,
@@ -320,26 +294,16 @@ class _MusicScreenState extends State<MusicScreen> {
                             itemBuilder: (_, index) {
                               return OptionMusic(
                                   index: index + 1,
-                                  name: musicController.listMusic
-                                      .elementAt(index)
-                                      .title,
+                                  name: musicController.listMusic.elementAt(index).title,
                                   press: () {
-                                    print(musicController.listMusic
-                                        .elementAt(index)
-                                        .title);
-                                    musicController.selectSong(musicController
-                                        .listMusic
-                                        .elementAt(index));
-                                    musicController.listMusic
-                                            .elementAt(index)
-                                            .select =
-                                        !musicController.listMusic
-                                            .elementAt(index)
-                                            .select;
+                                    musicController.selectSong(musicController.listMusic.elementAt(index));
+                                    select(musicController.listMusic.elementAt(index));
+                                    setState(() {
+                                      musicController.listMusic.elementAt(index).select 
+                                      = !musicController.listMusic.elementAt(index).select;
+                                    });
                                   },
-                                  isSelected: musicController.listMusic
-                                      .elementAt(index)
-                                      .select);
+                                  isSelected: musicController.listMusic.elementAt(index).select);
                             }),
                   ),
                 ],

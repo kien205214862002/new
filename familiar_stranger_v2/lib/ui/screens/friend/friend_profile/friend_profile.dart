@@ -244,7 +244,7 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      if(!userController.currentListFriend.contains(widget.friendAcc)){
+                      if(!userController.currentListFriend.any((element) => element.value.id == widget.friendAcc.value.id)){
                         notificationController.sendInviteToAddFriend(widget.friendAcc.value.id);
                         showSnackbar('Send invite to add friend', 'Send invite to add friend successful', Icons.check);
                       } else {

@@ -1,16 +1,18 @@
 import 'package:familiar_stranger_v2/controllers/conversationController.dart';
+import 'package:familiar_stranger_v2/controllers/musicController.dart';
 import 'package:familiar_stranger_v2/controllers/user/notificationController.dart';
 import 'package:familiar_stranger_v2/services/api.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/dialog/dialog_calling.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:socket_io_client/socket_io_client.dart' as socketIO;
 
 late socketIO.Socket socket;
 ConversationController conversationController = Get.put(ConversationController());
 NotificationController notificationController = Get.put(NotificationController());
-
+MusicController musicController = Get.put(MusicController());
 void connectSocket() {
-  socket = socketIO.io('http://172.16.0.136:3000', <String, dynamic>{
+  socket = socketIO.io('https://fsserverv2-production.up.railway.app', <String, dynamic>{
     'transports': ['websocket'],
     'autoConnect': false,
   });
@@ -46,6 +48,19 @@ void connectSocket() {
         }, reject: (){
           Get.back();
         }))
+    });
+
+    socket.on('play', (data) => {
+      musicController.playMusic(data)
+    });
+    socket.on('pause', (data) => {
+      musicController.pauseMusic()
+    });
+    socket.on('chooseSong', (data) => {
+      musicController.chooseSongToPlay(data)
+    });
+    socket.on('select', (data) => {
+      musicController.selectSong(data)
     });
   });
 }
@@ -107,4 +122,20 @@ void acceptInvite(targerId){
 
 void voiceCall(data){
   socket.emit('voiceCall',data);
+}
+
+void play(data){
+  socket.emit('play',data);
+}
+
+void pause(){
+  socket.emit('pause');
+}
+
+void chooseSong(data){
+  socket.emit('chooseSong',data);
+}
+
+void select(data){
+  socket.emit('select',data);
 }
