@@ -3,6 +3,7 @@ import 'package:familiar_stranger_v2/ui/components/backgrounds/home_bg.dart';
 import 'package:familiar_stranger_v2/ui/components/widgets/buttons/round_button.dart';
 import 'package:familiar_stranger_v2/ui/screens/chat/widgets/multi_textline.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ReportScreen extends StatefulWidget {
   const ReportScreen({Key? key}) : super(key: key);
@@ -60,7 +61,9 @@ class _ReportScreenState extends State<ReportScreen> {
                             backgroundColor: secondaryText,
                             textColor: primaryText,
                             text: 'Send',
-                            press: () {}),
+                            press: () {
+                              Get.back();
+                            }),
                       ],
                     )
                   ],

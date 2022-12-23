@@ -1,23 +1,23 @@
 class Song {
   String? id;
-  String? name;
-  String? link;
+  String? title;
+  String? musicUrl;
   bool? select;
 
-  Song({this.id, this.name, this.link, this.select});
+  Song({this.id, this.title, this.musicUrl, this.select});
 
   Song.fromJson(Map<String, dynamic> json) {
     id = json['_id'];
-    name = json['name'];
-    link = json['link'];
+    title = json['title'];
+    musicUrl = json['musicUrl'];
     select = false;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = id;
-    data['name'] = name;
-    data['link'] = link;
+    data['title'] = title;
+    data['musicUrl'] = musicUrl;
     data['select'] = select;
     return data;
   }

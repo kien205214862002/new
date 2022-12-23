@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
-var ip = '192.168.137.1';
+var ip = '172.16.0.136';
 
 final userData = GetStorage();
 //var token = userData.read('token');
@@ -292,6 +292,24 @@ Future<bool> submitResetPassword(phoneNumber, newPassword) async {
     return false;
   }
 }
+
+Future<bool> addFriend(friendId) async {
+  var token = userController.currentUser.value.token.toString();
+  try {
+    var response = await http.post(Uri.http('$ip:3000', '/user/friend'),
+        body: ({"friendId": friendId}),
+        headers: ({"authorization": token}));
+    var jsonData = jsonDecode(response.body);
+    if(jsonData['success'] == true && jsonData['message'] == "Add friend"){
+      return true;
+    }
+    return false;
+  } on Exception catch (e) {
+    debugPrint(e.toString());
+    return false;
+  }
+}
+
 
 Future<bool> addNotificationToData(senderId, targetId, type, content) async {
   try {

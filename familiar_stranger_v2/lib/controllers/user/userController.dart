@@ -57,7 +57,7 @@ class UserController extends GetxController {
     }
   }
 
-    Future<bool> addImage() async {
+  Future<bool> addImage() async {
     try {
       final ImagePicker imagePicker = ImagePicker();
       var image = await imagePicker.pickImage(source: ImageSource.gallery);
@@ -72,6 +72,15 @@ class UserController extends GetxController {
     }
   }
 
+  Future<bool> updateListFriend() async {
+    try {
+      await getListFriend();
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
 
   Future<bool> changePassword(oldPass, newPass) async {
     return false;

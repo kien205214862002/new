@@ -92,7 +92,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           alignment: Alignment.topCenter,
                           child: Obx(
                             () => ListView.builder(
-                              // reverse: true,
+                              //reverse: true,
                               itemCount: notificationController
                                   .listNotification.length,
                               itemBuilder: (BuildContext context, int index) {
@@ -106,15 +106,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                         .elementAt(index)
                                         .content,
                                     accept: (_) {
-                                      notificationController.acceptInviteToRoom(
-                                          notificationController
-                                              .listNotification
-                                              .elementAt(index)
-                                              .senderId);
-                                      print(notificationController
-                                              .listNotification
-                                              .elementAt(index)
-                                              .senderId);
+                                      (notificationController.listNotification.elementAt(index).type == "InviteToRoom")
+                                      ? notificationController.acceptInviteToRoom(
+                                            notificationController
+                                                .listNotification
+                                                .elementAt(index)
+                                                .senderId)
+                                      : notificationController.acceptInviteToAddFriend(
+                                            notificationController
+                                                .listNotification
+                                                .elementAt(index)
+                                                .senderId);
                                     },
                                     reject: (_) {});
                               },

@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
 import 'package:familiar_stranger_v2/controllers/musicController.dart';
 import 'package:familiar_stranger_v2/ui/components/backgrounds/music_bg.dart';
@@ -15,6 +16,32 @@ class MusicScreen extends StatefulWidget {
 }
 
 class _MusicScreenState extends State<MusicScreen> {
+
+  var audioPlayer = AudioPlayer(); // playing
+  Duration start = Duration.zero; // duration when start
+  Duration end = Duration.zero; // duration of the song
+  var isPlaying = false;
+
+  void press_play() {
+    setState(() {
+      isPlaying = !isPlaying;
+    });
+  }
+
+  void isPlay() {
+    if (isPlaying == true) {
+    } else {
+      press_play();
+    }
+  }
+
+  void isPause() {
+    if (isPlaying == false) {
+    } else {
+      press_play();
+    }
+  }
+
 
   MusicController musicController = Get.put(MusicController());
 
@@ -103,7 +130,7 @@ class _MusicScreenState extends State<MusicScreen> {
                     height: 80 * size.height / 896,
                   ),
                   Text(
-                    '$titleMusic - $author',
+                    titleMusic,
                     style:
                         const TextStyle(fontFamily: 'NewRocker', fontSize: 18),
                   ),
@@ -134,7 +161,11 @@ class _MusicScreenState extends State<MusicScreen> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: ()async {
+                            await audioPlayer.pause();
+                            var url = 'https://sendeyo.com/updownload/file/script/0ae2c13a28775c3969132b703949df00.mp3';
+                            //await audioPlayer.play(url, volume: 80);
+                          },
                           child: Container(
                             height: 80 * size.height / 896,
                             width: 80 * size.height / 896,
@@ -229,23 +260,38 @@ class _MusicScreenState extends State<MusicScreen> {
                         border: Border.all(color: fieldBorder, width: 2.5),
                         borderRadius:
                             const BorderRadius.all(Radius.circular(15.0))),
-                    child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        itemCount: musicController.listMusic.length,
-                        itemBuilder: (_, index) {
-                          return (isSelectedList == true)
-                              ? 
-                              SelectedMusic(
+                    child: (isSelectedList == true)
+                        ? Obx(() => ListView.builder(
+                            padding: EdgeInsets.zero,
+                            itemCount: musicController.listMusicSelected.length,
+                            itemBuilder: (_, index) {
+                              return SelectedMusic(
                                   index: index + 1,
-                                  name: musicController.listMusic.elementAt(index).name.toString(),
-                                  press: () {},
-                                  isPlay: false)
-                              : OptionMusic(
+                                  name: musicController.listMusicSelected
+                                      .elementAt(index)
+                                      .title,
+                                  press: () async {
+                                    titleMusic = musicController.listMusicSelected.elementAt(index).title.toString();
+                                    press_play();
+                                  },
+                                  isPlay: false);
+                            }))
+                        : ListView.builder(
+                            padding: EdgeInsets.zero,
+                            itemCount: musicController.listMusic.length,
+                            itemBuilder: (_, index) {
+                              return OptionMusic(
                                   index: index + 1,
-                                  name: musicController.listMusic.elementAt(index).name,
-                                  press: () {},
-                                  isSelected: false);
-                        }),
+                                  name: musicController.listMusic
+                                      .elementAt(index)
+                                      .title,
+                                  press: () {
+                                    print(musicController.listMusic.elementAt(index).title);
+                                    musicController.selectSong(musicController.listMusic.elementAt(index));
+                                    musicController.listMusic.elementAt(index).select = !musicController.listMusic.elementAt(index).select;
+                                  },
+                                  isSelected: musicController.listMusic.elementAt(index).select);
+                            }),
                   ),
                 ],
               ),

@@ -243,7 +243,14 @@ class _FriendProfileScreenState extends State<FriendProfileScreen> {
                     height: 10 * size.height / 896,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      if(!userController.currentListFriend.contains(widget.friendAcc)){
+                        notificationController.sendInviteToAddFriend(widget.friendAcc.value.id);
+                        showSnackbar('Send invite to add friend', 'Send invite to add friend successful', Icons.check);
+                      } else {
+                        showSnackbar('Send invite to add friend', 'We are friend together', Icons.check);
+                      }
+                    },
                     child: Image.asset(
                       'assets/icons/Following-1.png',
                       scale: 4,

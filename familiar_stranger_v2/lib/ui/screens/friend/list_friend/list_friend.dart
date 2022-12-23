@@ -1,4 +1,5 @@
 import 'package:familiar_stranger_v2/config/utils/export_file.dart';
+import 'package:familiar_stranger_v2/controllers/user/notificationController.dart';
 import 'package:familiar_stranger_v2/controllers/user/userController.dart';
 import 'package:familiar_stranger_v2/main.dart';
 import 'package:familiar_stranger_v2/models/user.dart';
@@ -18,6 +19,8 @@ class ListFriendScreen extends StatefulWidget {
 
 class _ListFriendScreenState extends State<ListFriendScreen> {
   UserController userController = Get.put(UserController());
+  NotificationController notificationController =
+      Get.put(NotificationController());
   late List<Rx<User>> listAllFriend;
   late List<Rx<User>> listRecentConnect;
   List<Rx<User>> listFreeFriend = [];
@@ -274,7 +277,22 @@ class _ListFriendScreenState extends State<ListFriendScreen> {
                                         .imageUrl
                                         .toString(),
                                     onPressedAdd: () {
-                                      print('object');
+                                      // if ((userController.currentListFriend.singleWhere((it) => it.value.id == '',orElse: ()=>Rx<User>(new User()))) == null) {
+                                      //   notificationController
+                                      //       .sendInviteToAddFriend(
+                                      //           listRecentConnect[index]
+                                      //               .value
+                                      //               .id);
+                                      //   showSnackbar(
+                                      //       'Send invite to add friend',
+                                      //       'Send invite to add friend successful',
+                                      //       Icons.check);
+                                      // } else {
+                                      //   showSnackbar(
+                                      //       'Send invite to add friend',
+                                      //       'We are friend together',
+                                      //       Icons.check);
+                                      // }
                                     },
                                     onPressed: () {
                                       Get.to(() => FriendProfileScreen(

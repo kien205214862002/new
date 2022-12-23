@@ -15,6 +15,13 @@ class ChatRoomScreen extends StatefulWidget {
   State<ChatRoomScreen> createState() => _ChatRoomScreenState();
 }
 
+showSnackbar(title, message, IconData icon) {
+  Get.snackbar(title, message,
+      snackPosition: SnackPosition.BOTTOM,
+      icon: Icon(icon, color: Colors.white));
+}
+
+
 class _ChatRoomScreenState extends State<ChatRoomScreen> {
   UserController userController = Get.put(UserController());
   ConversationController conversationController =
@@ -62,7 +69,12 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 padding: EdgeInsets.only(right: 5.0 * size.width / 414),
                 child: GestureDetector(
                     onTap: () {
-                      print('object');
+                      if(!userController.currentListFriend.contains(conversationController.targetUser)){
+                        notificationController.sendInviteToAddFriend(conversationController.targetUser.value.id);
+                        showSnackbar('Send invite to add friend', 'Send invite to add friend successful', Icons.check);
+                      } else {
+                        showSnackbar('Send invite to add friend', 'We are friend together', Icons.check);
+                      }
                     },
                     child: Image.asset(
                       'assets/icons/Following.png',
@@ -91,7 +103,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                               controller: messageTextController,
                               pressRecord: () {},
                               pressEmoji: () {},
-                              pressImage: () {},
+                              pressImage: () {
+                                
+                              },
                               sendMessage: () {
                                 conversationController.sendMessage(
                                     userController.currentUser.value.id,
@@ -126,11 +140,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     GestureDetector(
                       onTap: () {
                         final data = {
-                          "chatroom":
-                              userController.currentUser.value.id.toString(),
-                          "avt": conversationController
-                              .targetUser.value.listImage![0].imageUrl
-                              .toString()
+                          "chatroom": userController.currentUser.value.id.toString(),
+                          "avt": conversationController.targetUser.value.listImage![0].imageUrl.toString(),
+                          "type":"voice"
                         };
                         voiceCall(data);
                         Get.toNamed('/voice_calling', parameters: data);
@@ -146,14 +158,11 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     GestureDetector(
                       onTap: () {
                         final data = {
-                          "chatroom":
-                              userController.currentUser.value.id.toString(),
-                          "avt": conversationController
-                              .targetUser.value.listImage![0].imageUrl
-                              .toString()
+                          "chatroom": userController.currentUser.value.id.toString(),
+                          "avt": conversationController.targetUser.value.listImage![0].imageUrl.toString(),
+                          "type":"video"
                         };
                         voiceCall(data);
-                        //videoCall riêng
                         Get.toNamed('/video_calling', parameters: data);
                       },
                       child: Image.asset(
@@ -177,7 +186,9 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                       height: 20 * size.height / 896,
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed('/reportScreen');
+                      },
                       child: Image.asset(
                         'assets/icons/Error-1.png',
                         scale: 4,

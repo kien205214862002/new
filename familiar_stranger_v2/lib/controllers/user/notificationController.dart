@@ -9,6 +9,7 @@ class NotificationController extends GetxController {
   RxList listNotification = [].obs;
 
   void loadInitNotification() async {
+    listNotification = [].obs;
     await getNotification();
   }
 
@@ -20,7 +21,7 @@ class NotificationController extends GetxController {
         type: "InviteToRoom",
         content: content,
         read: false);
-    SendInvite(notification.toJson());
+    sendInvite(notification.toJson());
     
   }
 
@@ -28,17 +29,23 @@ class NotificationController extends GetxController {
     acceptInvite(senderId);
   }
 
-  void sendAddFriend(targetId) async {
-    var content =
-        "${userController.currentUser.value.username} send invit to add friend";
+  void sendInviteToAddFriend(targetId) async {
+    var content = "${userController.currentUser.value.username} send invite to add friend";
     var notification = Notification(
         senderId: userController.currentUser.value.id,
         targetId: targetId,
         type: "Invite to add friend",
         content: content,
         read: false);
-    SendInvite(notification.toJson());
+    sendAddFriend(notification.toJson());
   }
+
+  void acceptInviteToAddFriend(senderId)async {
+    if(await addFriend(senderId)){
+      userController.updateListFriend();
+    }
+  }
+
 
   void addNotification(data) async {
     var notification = Notification.fromJson(data);
