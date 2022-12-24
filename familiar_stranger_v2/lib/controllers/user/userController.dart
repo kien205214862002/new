@@ -37,14 +37,14 @@ class UserController extends GetxController {
       final ImagePicker imagePicker = ImagePicker();
       var image = await imagePicker.pickImage(source: ImageSource.gallery);
       if (image != null) {
-        print('${currentUser.value.listImage![0].imageUrl.toString()}  1 2');
+        //print('${currentUser.value.listImage![0].imageUrl.toString()}  1 2');
         await uploadAvatar(image.path.toString());
         // Future.delayed(const Duration(seconds: 3),() async {
         //   print(currentUser.value.listImage![0].imageUrl.toString());
         //   await uploadAvatar(image.path.toString());
         //   print(currentUser.value.listImage![0].imageUrl.toString());
         // });
-        print('${currentUser.value.listImage![0].imageUrl.toString()}  1 2');
+        //print('${currentUser.value.listImage![0].imageUrl.toString()}  1 2');
         // currentUser.update((user) {
         //   user!.listImage[0] =
         // });

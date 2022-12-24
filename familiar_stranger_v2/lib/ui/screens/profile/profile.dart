@@ -56,10 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             actions: [
               GestureDetector(
                   onTap: () {
-                    // Get.toNamed('/editProfileScreen');
-
-                    final data = {"chatroom": "qwert123", "avt": "123"};
-                    Get.toNamed('/video_calling', parameters: data);
+                    Get.toNamed('/editProfileScreen');
                   },
                   child: Image.asset(
                     'assets/icons/Edit Mailbox.png',

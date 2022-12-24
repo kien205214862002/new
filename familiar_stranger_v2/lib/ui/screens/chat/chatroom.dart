@@ -21,7 +21,6 @@ showSnackbar(title, message, IconData icon) {
       icon: Icon(icon, color: Colors.white));
 }
 
-
 class _ChatRoomScreenState extends State<ChatRoomScreen> {
   UserController userController = Get.put(UserController());
   ConversationController conversationController =
@@ -69,11 +68,18 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                 padding: EdgeInsets.only(right: 5.0 * size.width / 414),
                 child: GestureDetector(
                     onTap: () {
-                      if(!userController.currentListFriend.any((element) => element.value.id == conversationController.targetUser.value.id)){
-                        notificationController.sendInviteToAddFriend(conversationController.targetUser.value.id);
-                        showSnackbar('Send invite to add friend', 'Send invite to add friend successful', Icons.check);
+                      if (!userController.currentListFriend.any((element) =>
+                          element.value.id ==
+                          conversationController.targetUser.value.id)) {
+                        notificationController.sendInviteToAddFriend(
+                            conversationController.targetUser.value.id);
+                        showSnackbar(
+                            'Send invite to add friend',
+                            'Send invite to add friend successful',
+                            Icons.check);
                       } else {
-                        showSnackbar('Send invite to add friend', 'We are friend together', Icons.check);
+                        showSnackbar('Send invite to add friend',
+                            'We are friend together', Icons.check);
                       }
                     },
                     child: Image.asset(
@@ -104,15 +110,17 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                               pressRecord: () {},
                               pressEmoji: () {},
                               pressImage: () {
-                                
+                                conversationController.sendImageMessage(
+                                    userController.currentUser.value.id,
+                                    userController.currentUser.value
+                                        .listImage![0].imageUrl);
                               },
                               sendMessage: () {
                                 conversationController.sendMessage(
                                     userController.currentUser.value.id,
                                     userController.currentUser.value
                                         .listImage![0].imageUrl,
-                                    messageTextController.text.toString(),
-                                    false);
+                                    messageTextController.text.toString());
                                 print('send message');
                                 messageTextController.clear();
                               })
@@ -140,9 +148,12 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     GestureDetector(
                       onTap: () {
                         final data = {
-                          "chatroom": "${userController.currentUser.value.id.toString()}_voice",
-                          "avt": conversationController.targetUser.value.listImage![0].imageUrl.toString(),
-                          "type":"voice"
+                          "chatroom":
+                              "${userController.currentUser.value.id.toString()}_voice",
+                          "avt": conversationController
+                              .targetUser.value.listImage![0].imageUrl
+                              .toString(),
+                          "type": "voice"
                         };
                         voiceCall(data);
                         Get.toNamed('/voice_calling', parameters: data);
@@ -158,9 +169,12 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                     GestureDetector(
                       onTap: () {
                         final data = {
-                          "chatroom": "${userController.currentUser.value.id.toString()}_video",
-                          "avt": conversationController.targetUser.value.listImage![0].imageUrl.toString(),
-                          "type":"video"
+                          "chatroom":
+                              "${userController.currentUser.value.id.toString()}_video",
+                          "avt": conversationController
+                              .targetUser.value.listImage![0].imageUrl
+                              .toString(),
+                          "type": "video"
                         };
                         voiceCall(data);
                         Get.toNamed('/video_calling', parameters: data);

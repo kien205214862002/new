@@ -16,7 +16,8 @@ class MusicController extends GetxController {
     await getAllSong();
   }
 
-  void selectSong(song) {
+  void selectSong(songId) {
+    Song song = listMusic.where((e) => e.id == songId).first;
     if(listMusicSelected.contains(song)){
       listMusicSelected.removeWhere((element) => element.id == song.id);
       song.isPlay = false;
@@ -27,7 +28,8 @@ class MusicController extends GetxController {
     update(['listMusicSelected']);
   }
 
-  void chooseSongToPlay(song){
+  void chooseSongToPlay(songId){
+    Song song = listMusic.where((e) => e.id == songId).first;
     //pause case
     if(song.isPlay == true){
       song.isPlay = false;
@@ -39,15 +41,17 @@ class MusicController extends GetxController {
     for (var element in musicController.listMusicSelected) {
       element.isPlay = false;
     }
-    playMusic(song);
+    playMusic(songId);
     song.isPlay = true;
 
     // musicController.listMusicSelected.elementAt(index).isPlay 
     // = !musicController.listMusicSelected.elementAt(index).isPlay;
   }
 
-  void playMusic(song) async {
-    await audioPlayer.play(song.musicUrl, volume: 80);
+  void playMusic(songId) async {
+    Song song = listMusic.where((e) => e.id == songId).first;
+    const urlDefault = "https://sendeyo.com/updownload/file/script/112efe41be23536713ea2dba6081917a.mp3";
+    await audioPlayer.play(song.musicUrl ?? urlDefault, volume: 80);
     song.isPlay = true;
     if(isPlaying == false.obs) {
       isPlaying.toggle();

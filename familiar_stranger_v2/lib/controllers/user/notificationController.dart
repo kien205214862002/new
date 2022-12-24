@@ -42,10 +42,10 @@ class NotificationController extends GetxController {
 
   void acceptInviteToAddFriend(senderId)async {
     if(await addFriend(senderId)){
+      acceptAddFriend(senderId);
       userController.updateListFriend();
     }
   }
-
 
   void addNotification(data) async {
     var notification = Notification.fromJson(data);

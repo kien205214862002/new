@@ -144,8 +144,8 @@ class _MusicScreenState extends State<MusicScreen> {
                           if (musicController.isPlaying == false) {
                             return GestureDetector(
                               onTap: () async {
-                                play(choosedSong);
-                                musicController.playMusic(choosedSong);
+                                play(choosedSong.id);
+                                musicController.playMusic(choosedSong.id);
                                 setState(() {});
                               },
                               child: Container(
@@ -280,8 +280,8 @@ class _MusicScreenState extends State<MusicScreen> {
                                       .title,
                                   press: () async {
                                     choosedSong = musicController.listMusicSelected.elementAt(index);
-                                    musicController.chooseSongToPlay(musicController.listMusicSelected.elementAt(index));
-                                    chooseSong(musicController.listMusicSelected.elementAt(index));
+                                    musicController.chooseSongToPlay(musicController.listMusicSelected.elementAt(index).id);
+                                    chooseSong(musicController.listMusicSelected.elementAt(index).id);
                                     setState(() {
                                       titleMusic = choosedSong.title;
                                     });
@@ -296,8 +296,8 @@ class _MusicScreenState extends State<MusicScreen> {
                                   index: index + 1,
                                   name: musicController.listMusic.elementAt(index).title,
                                   press: () {
-                                    musicController.selectSong(musicController.listMusic.elementAt(index));
-                                    select(musicController.listMusic.elementAt(index));
+                                    musicController.selectSong(musicController.listMusic.elementAt(index).id);
+                                    select(musicController.listMusic.elementAt(index).id);
                                     setState(() {
                                       musicController.listMusic.elementAt(index).select 
                                       = !musicController.listMusic.elementAt(index).select;

@@ -281,6 +281,25 @@ Future<bool> upImage(path) async {
   }
 }
 
+Future<String> upImageMessage(path) async {
+  try {
+    var request = http.MultipartRequest('POST', Uri.https(ip, '/user/addImageMess'));
+    request.files.add(await http.MultipartFile.fromPath('image', path));
+
+    var response = await request.send();
+    final resStr = await response.stream.bytesToString();
+    var jsonData = jsonDecode(resStr);
+    if (jsonData['success']) {
+      return jsonData['imageUrl'].toString();
+    }
+    return 'https://res.cloudinary.com/fs-app/image/upload/v1649060973/unnamed_vfgxcq.png';
+  } on Exception catch (e) {
+    debugPrint(e.toString());
+    return 'https://res.cloudinary.com/fs-app/image/upload/v1649060973/unnamed_vfgxcq.png';
+  }
+}
+
+
 Future<bool> submitResetPassword(phoneNumber, newPassword) async {
   try {
     var response = await http.post(Uri.https(ip, '/user/resetPassword'),
