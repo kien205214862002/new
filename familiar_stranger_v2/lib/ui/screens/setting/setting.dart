@@ -112,7 +112,9 @@ class _SettingScreenState extends State<SettingScreen> {
                   Clickitem(
                       title: 'Change password',
                       subtitle: 'Change current password',
-                      onPress: () {}),
+                      onPress: () {
+                        //Get.toNamed('/resetPasswordScreen');
+                      }),
                   Clickitem(
                       title: 'Policy & Legal',
                       subtitle: 'Read for customer',

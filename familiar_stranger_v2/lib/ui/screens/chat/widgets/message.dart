@@ -67,8 +67,10 @@ class Message extends StatelessWidget {
                         onTap: () {
                           Get.toNamed('/image', parameters: {'imageLink': mess.content!.toString()});
                         },
-                        child: Image.asset('assets/images/Vector.png',
-                            scale: 10))),
+                        child: Image(
+                          image: NetworkImage(mess.content!.toString(),scale: 10),
+                        ),
+                    )),
           ],
         ),
       ],

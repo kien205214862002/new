@@ -269,9 +269,8 @@ Future<bool> upImage(path) async {
       Future.delayed(const Duration(seconds: 3), () async {
         print(userController.currentUser.value.listImage!.length.toString());
       });
-      userController.currentUser.value
-              .listImage![userController.currentUser.value.listImage!.length] =
-          img.Image.fromJson(jsonData['image']);
+      userController.currentUser.value.listImage![userController.currentUser.value.listImage!.length] 
+      = img.Image.fromJson(jsonData['image']);
       return true;
     }
     return false;

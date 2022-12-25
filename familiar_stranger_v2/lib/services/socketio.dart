@@ -24,7 +24,10 @@ void connectSocket() {
     print('Connected');
 
     socket.on('to-conversation',
-        (data) => {conversationController.toConversation(data)});
+        (data) => {
+          conversationController.toConversation(data),
+          musicController.initMusic()
+        });
 
     socket.on('disconnect-conversation', (data) => {Get.back()});
 

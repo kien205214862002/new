@@ -16,6 +16,14 @@ class MusicController extends GetxController {
     await getAllSong();
   }
 
+  void initMusic() async {
+    for (var e in listMusic) {
+      e.select = false;
+      e.isPlay = false;
+    }
+    listMusicSelected = [].obs;
+  }
+
   void selectSong(songId) {
     Song song = listMusic.where((e) => e.id == songId).first;
     if(listMusicSelected.contains(song)){

@@ -170,7 +170,7 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
                       onTap: () {
                         final data = {
                           "chatroom":
-                              "${userController.currentUser.value.id.toString()}_video",
+                              "${userController.currentUser.value.id.toString()}_video1",
                           "avt": conversationController
                               .targetUser.value.listImage![0].imageUrl
                               .toString(),
